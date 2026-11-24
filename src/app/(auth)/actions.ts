@@ -56,6 +56,9 @@ export async function signUpAction(_: FormState, formData: FormData): Promise<Fo
   if (!parsed.success) return { status: "error", fieldErrors: toFieldErrors(parsed.error), values };
 
   const { fullName, email, phone, barbershopName, password } = parsed.data;
+  // plano escolhido na vitrine (o banco valida se existe e está ativo)
+  const desiredPlan = String(formData.get("desiredPlan") ?? "").trim().toLowerCase();
+  const safePlan = /^[a-z0-9-]{2,60}$/.test(desiredPlan) ? desiredPlan : undefined;
   const supabase = await createClient();
 
   // Os metadados disparam, no banco, a criação do perfil + barbearia + vínculo
@@ -64,7 +67,7 @@ export async function signUpAction(_: FormState, formData: FormData): Promise<Fo
     email,
     password,
     options: {
-      data: { full_name: fullName, phone, barbershop_name: barbershopName },
+      data: { full_name: fullName, phone, barbershop_name: barbershopName, desired_plan: safePlan },
       emailRedirectTo: `${await siteUrl()}/auth/callback?next=/onboarding`,
     },
   });

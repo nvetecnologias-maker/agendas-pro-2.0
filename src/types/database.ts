@@ -122,6 +122,19 @@ export type Database = {
       barbershop_access_level: { Args: { p_barbershop_id: string }; Returns: AccessLevel };
       plan_limit: { Args: { p_barbershop_id: string; p_feature_key: string }; Returns: number | null };
       has_feature: { Args: { p_barbershop_id: string; p_feature_key: string }; Returns: boolean };
+      get_public_platform_info: {
+        Args: Record<string, never>;
+        Returns: {
+          platform_name: string;
+          logo_url: string | null;
+          support_email: string | null;
+          contact_phone: string | null;
+          contact_whatsapp: string | null;
+          public_base_url: string;
+          default_trial_days: number;
+          social_links: Record<string, string>;
+        }[];
+      };
     };
     Enums: {
       platform_role: PlatformRole;

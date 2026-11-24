@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { MailCheck } from "lucide-react";
 import { signUpAction, type FormState } from "@/app/(auth)/actions";
@@ -9,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "./password-input";
 import { FormMessage } from "./form-message";
 
-export function SignUpForm() {
+export function SignUpForm({ plan }: { plan?: { slug: string; name: string; trialDays: number } }) {
   const [state, action, pending] = useActionState<FormState, FormData>(signUpAction, { status: "idle" });
 
   if (state.status === "success") {
@@ -26,6 +27,16 @@ export function SignUpForm() {
   const e = state.fieldErrors ?? {};
   return (
     <form action={action} className="grid gap-4" noValidate>
+      <input type="hidden" name="desiredPlan" value={plan?.slug ?? ""} />
+      {plan && (
+        <div className="glass flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-sm">
+          <span className="text-muted-foreground">Plano escolhido</span>
+          <span className="font-medium text-halo">
+            {plan.name}
+            {plan.trialDays > 0 && <span className="text-sky"> · {plan.trialDays} dias grátis</span>}
+          </span>
+        </div>
+      )}
       <FormMessage state={state} />
       <Field id="fullName" label="Nome completo" error={e.fullName}>
         <Input name="fullName" autoComplete="name" placeholder="João Silva" defaultValue={v.fullName} required />
@@ -53,7 +64,9 @@ export function SignUpForm() {
         Criar conta e começar teste grátis
       </Button>
       <p className="text-center text-xs text-subtle-foreground">
-        Ao criar a conta você concorda com os Termos de uso e a Política de privacidade.
+        Ao criar a conta você concorda com os{" "}
+        <Link href="/termos" className="text-sky hover:underline">Termos de uso</Link> e a{" "}
+        <Link href="/privacidade" className="text-sky hover:underline">Política de privacidade</Link>.
       </p>
     </form>
   );

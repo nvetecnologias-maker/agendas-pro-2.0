@@ -215,3 +215,15 @@ body {
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* Liquid Navbar: cenas dos ícones ao toque */
+.liquid-nav-icon svg { transition: transform .45s cubic-bezier(.3,1.6,.5,1); }
+.liquid-nav [aria-current="true"] .liquid-nav-icon svg { transform: translateY(-1px) scale(1.08); }
+.liquid-nav-icon[data-fx="hop"] svg { animation: lnHop .8s cubic-bezier(.3,1.4,.5,1) both; transform-origin: 50% 100%; }
+.liquid-nav-icon[data-fx="spin"] svg { animation: lnSpin .9s cubic-bezier(.2,.75,.25,1) both; }
+.liquid-nav-icon[data-fx="pulse"] svg { animation: lnPulse .6s cubic-bezier(.3,1.6,.5,1) both; }
+.liquid-nav-icon[data-fx="tilt"] svg { animation: lnTilt .9s ease-in-out both; transform-origin: 50% 90%; }
+@keyframes lnHop { 0%{transform:none} 30%{transform:translateY(-5px) scale(1.04,.96)} 55%{transform:scale(1.12,.88)} 75%{transform:translateY(-2px) scale(.98,1.04)} 100%{transform:translateY(-1px) scale(1.08)} }
+@keyframes lnSpin { from{transform:perspective(80px) rotateY(0)} to{transform:perspective(80px) rotateY(360deg) translateY(-1px) scale(1.08)} }
+@keyframes lnPulse { 0%{transform:scale(.72)} 60%{transform:scale(1.2)} 100%{transform:translateY(-1px) scale(1.08)} }
+@keyframes lnTilt { 0%{transform:none} 20%{transform:rotate(-14deg)} 40%{transform:rotate(11deg)} 60%{transform:rotate(-7deg)} 80%{transform:rotate(3deg)} 100%{transform:translateY(-1px) scale(1.08)} }
