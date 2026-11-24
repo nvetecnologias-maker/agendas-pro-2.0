@@ -9,7 +9,8 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:db": "bash scripts/db-test.sh"
+    "test:db": "bash scripts/db-test.sh",
+    "db:types": "python3 scripts/gen-db-types.py"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.8",
@@ -30,6 +31,7 @@
     "lucide-react": "^1.78.0",
     "motion": "^14.14.0",
     "next": "15.5.29",
+    "qrcode": "^1.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.92.0",
@@ -43,6 +45,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22.20.5",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

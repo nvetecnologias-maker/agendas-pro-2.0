@@ -227,3 +227,14 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes lnSpin { from{transform:perspective(80px) rotateY(0)} to{transform:perspective(80px) rotateY(360deg) translateY(-1px) scale(1.08)} }
 @keyframes lnPulse { 0%{transform:scale(.72)} 60%{transform:scale(1.2)} 100%{transform:translateY(-1px) scale(1.08)} }
 @keyframes lnTilt { 0%{transform:none} 20%{transform:rotate(-14deg)} 40%{transform:rotate(11deg)} 60%{transform:rotate(-7deg)} 80%{transform:rotate(3deg)} 100%{transform:translateY(-1px) scale(1.08)} }
+
+/* Painel: a coluna raiz das páginas nunca cresce além da tela (inputs de hora,
+   abas com rolagem etc. encolhem em vez de empurrar a página para o lado).
+   Em @layer base para que utilitários como lg:grid-cols-2 continuem valendo. */
+@layer base {
+  main > .grid,
+  main > .grid > .grid,
+  main > .grid > div:not([class]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

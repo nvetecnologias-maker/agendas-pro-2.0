@@ -1,148 +1,41 @@
 /**
- * Tipos do banco (subconjunto usado na Fase 1).
- * Quando o projeto estiver ligado ao Supabase, substituir por:
- *   npx supabase gen types typescript --project-id yimnqkwliqxqqgqctabn > src/types/database.ts
+ * Tipos do banco. O schema completo vem de database.generated.ts
+ * (gerado por scripts/gen-db-types.py a partir das migrations).
+ * Aqui ficam apenas apelidos práticos usados pelo app.
  */
+import type { Database, Json } from "./database.generated";
 
-export type PlatformRole = "user" | "super_admin";
-export type ShopRole = "owner" | "admin" | "professional";
-export type BarbershopStatus = "active" | "suspended";
-export type BillingPeriod = "monthly" | "quarterly" | "semiannual" | "annual";
-export type SubscriptionStatus = "trial" | "active" | "pending" | "past_due" | "canceled" | "suspended" | "expired";
-export type AppointmentStatus = "pending" | "confirmed" | "in_progress" | "completed" | "cancelled" | "no_show";
+export type { Database, Json };
+
+type PublicSchema = Database["public"];
+export type Tables<T extends keyof PublicSchema["Tables"]> = PublicSchema["Tables"][T]["Row"];
+export type TablesInsert<T extends keyof PublicSchema["Tables"]> = PublicSchema["Tables"][T]["Insert"];
+export type TablesUpdate<T extends keyof PublicSchema["Tables"]> = PublicSchema["Tables"][T]["Update"];
+export type Views<T extends keyof PublicSchema["Views"]> = PublicSchema["Views"][T]["Row"];
+export type Enums<T extends keyof PublicSchema["Enums"]> = PublicSchema["Enums"][T];
+
+export type PlatformRole = Enums<"platform_role">;
+export type ShopRole = Enums<"shop_role">;
+export type BarbershopStatus = Enums<"barbershop_status">;
+export type BillingPeriod = Enums<"billing_period">;
+export type SubscriptionStatus = Enums<"subscription_status">;
+export type AppointmentStatus = Enums<"appointment_status">;
+export type AppointmentSource = Enums<"appointment_source">;
+export type PaymentMethod = Enums<"payment_method">;
+export type TimeBlockKind = Enums<"time_block_kind">;
 export type AccessLevel = "full" | "grace" | "billing_only" | "blocked";
 
-type Timestamp = string;
-
-type Table<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
-  Row: Row;
-  Insert: Insert;
-  Update: Update;
-  Relationships: [];
-};
-
-export type Profile = {
-  id: string;
-  full_name: string;
-  email: string | null;
-  phone: string | null;
-  avatar_url: string | null;
-  platform_role: PlatformRole;
-  last_seen_at: Timestamp | null;
-  created_at: Timestamp;
-  updated_at: Timestamp;
-};
-
-export type Barbershop = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string | null;
-  status: BarbershopStatus;
-  timezone: string;
-  phone: string | null;
-  whatsapp: string | null;
-  email: string | null;
-  logo_url: string | null;
-  cover_url: string | null;
-  published_at: Timestamp | null;
-  onboarding_step: number;
-  onboarding_completed_at: Timestamp | null;
-  is_demo: boolean;
-  created_at: Timestamp;
-  updated_at: Timestamp;
-};
-
-export type BarbershopMember = {
-  id: string;
-  barbershop_id: string;
-  user_id: string;
-  role: ShopRole;
-  is_active: boolean;
-  created_at: Timestamp;
-  updated_at: Timestamp;
-};
-
-export type Plan = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string | null;
-  price_cents: number;
-  compare_at_cents: number | null;
-  billing_period: BillingPeriod;
-  trial_days: number;
-  is_featured: boolean;
-  highlight_label: string | null;
-  is_active: boolean;
-  is_default_trial: boolean;
-  sort_order: number;
-  created_at: Timestamp;
-  updated_at: Timestamp;
-};
-
-export type PlanFeature = {
-  plan_id: string;
-  feature_key: string;
-  enabled: boolean;
-  limit_value: number | null;
-  label: string | null;
-  sort_order: number;
-};
-
-export type Subscription = {
-  id: string;
-  barbershop_id: string;
-  plan_id: string;
-  status: SubscriptionStatus;
-  amount_cents: number;
-  billing_period: BillingPeriod;
-  started_at: Timestamp;
-  current_period_start: Timestamp;
-  current_period_end: Timestamp;
-  next_billing_at: Timestamp | null;
-  canceled_at: Timestamp | null;
-  created_at: Timestamp;
-  updated_at: Timestamp;
-};
-
-export type Database = {
-  public: {
-    Tables: {
-      profiles: Table<Profile, Pick<Profile, "id" | "full_name"> & Partial<Profile>>;
-      barbershops: Table<Barbershop>;
-      barbershop_members: Table<BarbershopMember>;
-      plans: Table<Plan>;
-      plan_features: Table<PlanFeature>;
-      subscriptions: Table<Subscription>;
-    };
-    Views: Record<string, never>;
-    Functions: {
-      is_super_admin: { Args: Record<string, never>; Returns: boolean };
-      barbershop_access_level: { Args: { p_barbershop_id: string }; Returns: AccessLevel };
-      plan_limit: { Args: { p_barbershop_id: string; p_feature_key: string }; Returns: number | null };
-      has_feature: { Args: { p_barbershop_id: string; p_feature_key: string }; Returns: boolean };
-      get_public_platform_info: {
-        Args: Record<string, never>;
-        Returns: {
-          platform_name: string;
-          logo_url: string | null;
-          support_email: string | null;
-          contact_phone: string | null;
-          contact_whatsapp: string | null;
-          public_base_url: string;
-          default_trial_days: number;
-          social_links: Record<string, string>;
-        }[];
-      };
-    };
-    Enums: {
-      platform_role: PlatformRole;
-      shop_role: ShopRole;
-      subscription_status: SubscriptionStatus;
-      appointment_status: AppointmentStatus;
-      billing_period: BillingPeriod;
-    };
-    CompositeTypes: Record<string, never>;
-  };
-};
+export type Profile = Tables<"profiles">;
+export type Barbershop = Tables<"barbershops">;
+export type BarbershopMember = Tables<"barbershop_members">;
+export type Plan = Tables<"plans">;
+export type PlanFeature = Tables<"plan_features">;
+export type Subscription = Tables<"subscriptions">;
+export type Professional = Tables<"professionals">;
+export type Service = Tables<"services">;
+export type Customer = Tables<"customers">;
+export type Appointment = Tables<"appointments">;
+export type Payment = Tables<"payments">;
+export type WorkingHour = Tables<"working_hours">;
+export type TimeBlock = Tables<"time_blocks">;
+export type AppointmentEvent = Tables<"appointment_events">;
