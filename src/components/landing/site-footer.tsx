@@ -25,7 +25,7 @@ export function SiteFooter({ info }: { info: PublicPlatformInfo }) {
   const whatsapp = info.contact_whatsapp?.replace(/\D/g, "");
 
   return (
-    <footer className="border-t border-border bg-[#020817] pb-28 lg:pb-0">
+    <footer className="border-t border-border bg-[#020817] pb-28 xl:pb-0">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="grid content-start gap-4">
           <Logo />

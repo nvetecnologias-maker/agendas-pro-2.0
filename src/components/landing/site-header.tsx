@@ -80,7 +80,7 @@ export function SiteHeader() {
             <Logo />
           </Link>
 
-          <div className="hidden lg:block" onClickCapture={onNavClick}>
+          <div className="hidden xl:block" onClickCapture={onNavClick}>
             <LiquidNavbar items={NAV} active={active} onSelect={(i) => goTo(i)} />
           </div>
 
@@ -98,7 +98,7 @@ export function SiteHeader() {
       {/* Celular/tablet: navegação inferior compacta (só ícones) */}
       <div
         className={cn(
-          "fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 transition-all duration-500 ease-out lg:hidden",
+          "fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 transition-all duration-500 ease-out xl:hidden",
           showDock ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0",
         )}
         aria-hidden={!showDock}

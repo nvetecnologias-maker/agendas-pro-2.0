@@ -32,7 +32,7 @@ export function Logo({ className, withText = true }: { className?: string; withT
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <LogoMark />
       {withText && (
-        <span className="text-[17px] font-semibold tracking-tight text-halo">
+        <span className="whitespace-nowrap text-[17px] font-semibold tracking-tight text-halo">
           Agendas<span className="text-sky"> Pro</span>
         </span>
       )}

@@ -450,7 +450,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
           "aria-current": isActive ? ("true" as const) : undefined,
           onClick: () => select(i),
           className: cn(
-            "relative z-10 inline-flex h-10 items-center gap-2 rounded-xl text-[14px] font-medium tracking-[-0.01em] transition-colors duration-300 outline-none",
+            "relative z-10 inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-xl text-[14px] font-medium tracking-[-0.01em] transition-colors duration-300 outline-none",
             "focus-visible:ring-2 focus-visible:ring-sky focus-visible:ring-offset-0",
             compact ? "px-3" : "px-4",
             isActive ? "text-white" : "text-halo/65 hover:text-halo",
