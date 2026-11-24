@@ -19,6 +19,13 @@ const AP: Record<string, string> = {
   AP_NOT_CANCELLABLE: "Este agendamento não pode mais ser cancelado.",
   AP_CANCEL_TOO_LATE: "O prazo para cancelar pelo link já passou. Fale com a barbearia.",
   AP_NOT_FOUND: "Agendamento não encontrado.",
+  AP_PLAN_NOT_FOUND: "Plano indisponível.",
+  AP_NO_SUBSCRIPTION: "Nenhuma assinatura vigente.",
+  AP_COUPON_INVALID: "Cupom inválido.",
+  AP_COUPON_EXPIRED: "Esse cupom expirou ou ainda não começou.",
+  AP_COUPON_NOT_APPLICABLE: "Esse cupom não vale para este plano ou para a sua conta.",
+  AP_COUPON_ALREADY_USED: "Você já usou esse cupom.",
+  AP_COUPON_EXHAUSTED: "Esse cupom atingiu o limite de usos.",
 };
 
 export function dbErrorMessage(error: { code?: string; message?: string } | null | undefined, fallback = "Não foi possível salvar. Tente novamente."): string {

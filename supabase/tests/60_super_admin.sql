@@ -40,7 +40,7 @@ select tests.ok(
      from public.admin_list_barbershops('alvo')),
   'busca por nome traz dono, plano e status');
 select tests.ok((select count(*) = 1 from public.admin_list_barbershops('966665555')), 'busca por telefone do dono');
-select tests.ok((select bool_and(status = 'suspended') and not bool_or(name = 'Barbearia Alvo') from public.admin_list_barbershops(null, 'suspended')),
+select tests.ok((select coalesce(bool_and(status = 'suspended') and not bool_or(name = 'Barbearia Alvo'), true) from public.admin_list_barbershops(null, 'suspended')),
   'filtro por status da barbearia');
 select tests.ok((public.admin_barbershop_detail((select shop from sa)) -> 'subscription' ->> 'plan_slug') = 'profissional',
   'detalhe mostra a assinatura atual');

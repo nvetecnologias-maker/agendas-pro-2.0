@@ -152,8 +152,8 @@ select tests.ok(
   (select bool_and(source = 'public_page' and created_by is null) from public.appointments where barbershop_id = (select shop from pb)),
   'reservas marcadas como vindas da página pública');
 select tests.ok(
-  (select count(*) = 5 from public.notifications where barbershop_id = (select shop from pb) and event_type = 'appointment.created')
-  and (select count(*) = 1 from public.notifications where barbershop_id = (select shop from pb) and event_type = 'appointment.cancelled'),
+  (select count(*) = 5 from public.notifications where barbershop_id = (select shop from pb) and event_type = 'appointment.created' and channel = 'in_app')
+  and (select count(*) = 1 from public.notifications where barbershop_id = (select shop from pb) and event_type = 'appointment.cancelled' and channel = 'in_app'),
   'barbearia é notificada de novas reservas e cancelamentos');
 
 -- simula um agendamento daqui a 1h (barbearia exige 2h de antecedência para cancelar)

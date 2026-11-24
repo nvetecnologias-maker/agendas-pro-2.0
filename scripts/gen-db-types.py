@@ -59,7 +59,7 @@ join pg_namespace n on n.oid = p.pronamespace
 join pg_type rt on rt.oid = p.prorettype
 where n.nspname = 'public' and p.prokind = 'f'
   and rt.typname not in ('trigger')
-  and has_function_privilege('authenticated', p.oid, 'execute')
+  and (has_function_privilege('authenticated', p.oid, 'execute') or has_function_privilege('service_role', p.oid, 'execute'))
 """)
 
 fks = q("""
