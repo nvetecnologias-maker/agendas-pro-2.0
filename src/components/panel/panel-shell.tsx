@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  CalendarDays, Contact, CreditCard, LayoutDashboard, Link2, LogOut, Menu, Plus,
+  Bell as BellIcon, CalendarDays, Contact, CreditCard, LayoutDashboard, Link2, LogOut, Menu, Plus,
   Scissors, Settings, Users, Wallet,
 } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
@@ -32,6 +32,8 @@ type Props = {
   shopName: string;
   shopLogo: string | null;
   planName: string | null;
+  /** avisos não lidos; null esconde o sino (quem não gerencia a barbearia) */
+  unread?: number | null;
   userName: string;
   roleLabel: string;
   canCreateAppointment: boolean;
@@ -52,7 +54,7 @@ function SignOut({ className }: { className?: string }) {
   );
 }
 
-export function PanelShell({ items, shopName, shopLogo, planName, userName, roleLabel, canCreateAppointment, children }: Props) {
+export function PanelShell({ items, shopName, shopLogo, planName, userName, roleLabel, canCreateAppointment, unread = null, children }: Props) {
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = React.useState(false);
 
@@ -66,8 +68,9 @@ export function PanelShell({ items, shopName, shopLogo, planName, userName, role
     <div className="min-h-svh bg-[radial-gradient(120%_60%_at_100%_0%,rgba(36,103,242,0.12),transparent_60%),radial-gradient(80%_50%_at_0%_100%,rgba(2,0,111,0.35),transparent_60%)] bg-navy">
       {/* ---------- Sidebar (desktop) ---------- */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[264px] flex-col border-r border-white/[0.06] bg-[#04102b]/80 backdrop-blur-xl lg:flex">
-        <div className="px-5 pb-4 pt-6">
+        <div className="flex items-center justify-between gap-2 px-5 pb-4 pt-6">
           <Logo />
+          {unread !== null && <Bell count={unread} active={isActive(pathname, "/painel/avisos")} />}
         </div>
         <nav aria-label="Menu do painel" className="flex-1 overflow-y-auto px-3">
           <ul className="grid gap-1">
@@ -120,14 +123,17 @@ export function PanelShell({ items, shopName, shopLogo, planName, userName, role
           <Avatar name={shopName} src={shopLogo} className="size-8 rounded-lg text-[11px]" />
           <p className="truncate text-[15px] font-semibold text-halo">{shopName}</p>
         </div>
-        <button
-          type="button"
-          onClick={() => setMoreOpen(true)}
-          className="grid size-10 place-items-center rounded-full bg-white/5 text-halo"
-          aria-label="Abrir menu"
-        >
-          <Menu className="size-5" />
-        </button>
+        <div className="flex shrink-0 items-center gap-2">
+          {unread !== null && <Bell count={unread} active={isActive(pathname, "/painel/avisos")} />}
+          <button
+            type="button"
+            onClick={() => setMoreOpen(true)}
+            className="grid size-10 place-items-center rounded-full bg-white/5 text-halo"
+            aria-label="Abrir menu"
+          >
+            <Menu className="size-5" />
+          </button>
+        </div>
       </header>
 
       <main className="mx-auto w-full max-w-6xl px-4 pb-32 pt-5 md:px-6 lg:pb-12 lg:pl-[calc(264px+2rem)] lg:pr-8 lg:pt-8 lg:max-w-none xl:pr-12">
@@ -216,5 +222,19 @@ function TabLink({ item, active }: { item: ShellNavItem; active: boolean }) {
         {label}
       </Link>
     </li>
+  );
+}
+
+function Bell({ count, active }: { count: number; active: boolean }) {
+  return (
+    <Link href="/painel/avisos" aria-label={count ? `Avisos: ${count} não lido(s)` : "Avisos"}
+      className={cn("relative grid size-10 place-items-center rounded-full text-halo", active ? "bg-electric/25" : "bg-white/5 hover:bg-white/10")}>
+      <BellIcon className="size-5" aria-hidden />
+      {count > 0 && (
+        <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-electric px-1 font-mono text-[10px] font-semibold text-white ring-2 ring-navy">
+          {count > 9 ? "9+" : count}
+        </span>
+      )}
+    </Link>
   );
 }

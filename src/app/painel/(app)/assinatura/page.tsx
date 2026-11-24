@@ -13,13 +13,16 @@ import { SUB_STATUS } from "@/lib/subscription";
 export const metadata: Metadata = { title: "Minha assinatura · Agendas Pro" };
 
 
+const METHOD: Record<string, string> = { pix: "Pix", credit_card: "Cartão", boleto: "Boleto", coupon: "Cupom" };
+
 const EVENT_LABEL: Record<string, string> = {
   created: "Assinatura criada", plan_changed: "Plano alterado", renewed: "Renovada", days_granted: "Dias concedidos",
   suspended: "Suspensa", reactivated: "Reativada", canceled: "Cancelada", expired: "Expirada", payment_failed: "Falha no pagamento",
   payment_approved: "Pagamento aprovado", cancel_scheduled: "Cancelamento agendado",
 };
 
-export default async function SubscriptionPage() {
+export default async function SubscriptionPage({ searchParams }: { searchParams: Promise<{ pagamento?: string }> }) {
+  const { pagamento } = await searchParams;
   const panel = await requirePanelAction("subscription.view");
   const { supabase, shop, tz, subscription: sub } = panel;
   const [plans, features, events, tx] = await Promise.all([
@@ -36,6 +39,12 @@ export default async function SubscriptionPage() {
   return (
     <div className="grid gap-5">
       <PageHeader title="Minha assinatura" />
+      {pagamento === "sucesso" && (
+        <Alert tone="success" title="Pagamento enviado">
+          Assim que o gateway confirmar (Pix costuma ser na hora; boleto leva até 3 dias úteis), sua assinatura é atualizada aqui e você recebe um aviso.
+        </Alert>
+      )}
+      {pagamento === "cancelado" && <Alert tone="info" title="Pagamento não concluído">Nada foi cobrado. Você pode tentar de novo quando quiser.</Alert>}
       {sub && daysLeft <= 5 && ["trial", "active", "past_due"].includes(sub.status) && (
         <Alert tone={daysLeft <= 0 ? "danger" : "warning"} title={daysLeft <= 0 ? "Sua assinatura venceu" : `Faltam ${daysLeft} dia(s) para o vencimento`}>
           {sub.status === "trial" ? "Escolha um plano para continuar usando sem interrupção." : "Renove para manter o acesso completo."}
@@ -82,7 +91,7 @@ export default async function SubscriptionPage() {
           <ul className="divide-y divide-white/[0.05]">
             {tx.data.map((t) => (
               <li key={t.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
-                <span className="text-halo">{formatDateTime(t.paid_at ?? t.created_at, tz)} <span className="text-muted-foreground">· {t.method ?? t.gateway}</span></span>
+                <span className="min-w-0 text-halo">{formatDateTime(t.paid_at ?? t.created_at, tz)} <span className="text-muted-foreground">· {METHOD[t.method ?? ""] ?? "Pagamento"}</span></span>
                 <span className="flex items-center gap-2">
                   <span className="font-mono text-halo">{formatMoney(t.amount_cents)}</span>
                   <Badge tone={t.status === "approved" ? "success" : t.status === "pending" ? "warning" : "neutral"}>
