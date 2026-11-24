@@ -4,8 +4,8 @@
 \echo '— Site institucional'
 
 insert into auth.users (email, raw_user_meta_data) values
-  ('premium@teste.dev', '{"full_name":"Cliente Premium","phone":"11955554444","barbershop_name":"Navalha de Ouro","desired_plan":"premium"}'),
-  ('invalido@teste.dev', '{"full_name":"Plano Inexistente","phone":"11955553333","barbershop_name":"Barbearia X","desired_plan":"nao-existe"}');
+  ('premium@teste.dev', '{"full_name":"Cliente Premium","phone":"11955554444","barbershop_name":"Navalha de Ouro","terms_version":"2026-11-24","privacy_version":"2026-11-24","desired_plan":"premium"}'),
+  ('invalido@teste.dev', '{"full_name":"Plano Inexistente","phone":"11955553333","barbershop_name":"Barbearia X","terms_version":"2026-11-24","privacy_version":"2026-11-24","desired_plan":"nao-existe"}');
 
 select tests.ok(
   (select p.slug = 'premium' from public.subscriptions s join public.plans p on p.id = s.plan_id

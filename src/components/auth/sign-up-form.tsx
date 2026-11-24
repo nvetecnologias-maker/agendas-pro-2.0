@@ -9,6 +9,7 @@ import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "./password-input";
 import { FormMessage } from "./form-message";
+import { LEGAL_ROUTES } from "@/lib/legal";
 
 export function SignUpForm({ plan }: { plan?: { slug: string; name: string; trialDays: number } }) {
   const [state, action, pending] = useActionState<FormState, FormData>(signUpAction, { status: "idle" });
@@ -60,14 +61,35 @@ export function SignUpForm({ plan }: { plan?: { slug: string; name: string; tria
           <PasswordInput name="confirmPassword" autoComplete="new-password" placeholder="Repita a senha" required />
         </Field>
       </div>
-      <Button type="submit" size="lg" loading={pending} className="mt-2 w-full">
+      <div className="grid gap-1.5">
+        <label
+          htmlFor="acceptLegal"
+          className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3.5 text-[13px] leading-relaxed text-muted-foreground has-[:checked]:border-sky/40"
+        >
+          <input
+            id="acceptLegal"
+            name="acceptLegal"
+            type="checkbox"
+            required
+            defaultChecked={v.acceptLegal === "on"}
+            aria-invalid={e.acceptLegal ? true : undefined}
+            aria-describedby={e.acceptLegal ? "acceptLegal-error" : undefined}
+            className="mt-0.5 size-5 shrink-0 cursor-pointer rounded accent-[#2467F2]"
+          />
+          <span>
+            Li e aceito os{" "}
+            <Link href={LEGAL_ROUTES.terms} target="_blank" className="font-medium text-sky underline-offset-2 hover:underline">Termos de Uso</Link> e a{" "}
+            <Link href={LEGAL_ROUTES.privacy} target="_blank" className="font-medium text-sky underline-offset-2 hover:underline">Política de Privacidade</Link>{" "}
+            do Agendas Pro.
+          </span>
+        </label>
+        {e.acceptLegal && (
+          <p id="acceptLegal-error" role="alert" className="text-[13px] text-danger">{e.acceptLegal}</p>
+        )}
+      </div>
+      <Button type="submit" size="lg" loading={pending} className="mt-1 w-full">
         Criar conta e começar teste grátis
       </Button>
-      <p className="text-center text-xs text-subtle-foreground">
-        Ao criar a conta você concorda com os{" "}
-        <Link href="/termos" className="text-sky hover:underline">Termos de uso</Link> e a{" "}
-        <Link href="/privacidade" className="text-sky hover:underline">Política de privacidade</Link>.
-      </p>
     </form>
   );
 }

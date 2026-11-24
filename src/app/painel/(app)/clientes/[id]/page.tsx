@@ -51,7 +51,7 @@ export default async function CustomerPage({ params }: { params: Promise<{ id: s
       <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatCard label="Atendimentos" value={stats?.completed_appointments ?? 0} />
         <StatCard label="Agendamentos" value={stats?.total_appointments ?? 0} />
-        <StatCard label="Último atendimento" value={stats?.last_visit_at ? formatDate(stats.last_visit_at, tz) : "—"} />
+        <StatCard label="Último atendimento" value={stats?.last_visit_at ? formatDate(stats.last_visit_at, tz) : "Não informado"} />
         {panel.can("finance.view") && <StatCard tone="brand" label="Total gasto" value={formatMoney(stats?.total_spent_cents ?? 0)} />}
       </section>
       {c.notes && (

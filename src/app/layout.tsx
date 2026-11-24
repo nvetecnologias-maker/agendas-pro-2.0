@@ -5,10 +5,33 @@ import "./globals.css";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")).replace(/\/$/, "");
+const DESCRIPTION =
+  "Sistema de agendamento online e gestão para barbearias: clientes marcam horário pelo celular e você controla profissionais, serviços, clientes e financeiro em um só painel.";
+
 export const metadata: Metadata = {
-  title: { default: "Agendas Pro · Gestão premium para barbearias", template: "%s" },
-  description:
-    "Organize seus horários, gerencie seus profissionais e acompanhe seus resultados em uma única plataforma.",
+  metadataBase: new URL(SITE_URL),
+  applicationName: "Agendas Pro",
+  title: { default: "Agendas Pro · Agendamento online e gestão para barbearias", template: "%s" },
+  description: DESCRIPTION,
+  keywords: ["agendamento online", "barbearia", "agenda para barbeiro", "sistema para barbearia", "gestão de barbearia"],
+  authors: [{ name: "Agendas Pro" }],
+  creator: "Agendas Pro",
+  publisher: "Agendas Pro",
+  formatDetection: { telephone: false },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Agendas Pro",
+    title: "Agendas Pro · Agendamento online e gestão para barbearias",
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Agendas Pro · Agendamento online e gestão para barbearias",
+    description: DESCRIPTION,
+  },
+  appleWebApp: { title: "Agendas Pro", statusBarStyle: "black-translucent" },
 };
 
 export const viewport: Viewport = { themeColor: "#030B20", colorScheme: "dark" };

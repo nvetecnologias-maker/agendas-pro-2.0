@@ -83,7 +83,7 @@ export function AgendaClient(props: Props) {
 
   const title =
     view === "dia" ? (day === today ? "Hoje" : formatDayLong(day))
-    : view === "semana" ? `${formatDayShort(props.range.from)} – ${formatDayShort(props.range.to)}`
+    : view === "semana" ? `${formatDayShort(props.range.from)} a ${formatDayShort(props.range.to)}`
     : formatMonthYear(day);
 
   const visible = React.useMemo(() => {
@@ -250,7 +250,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "h-9 shrink-0 rounded-full border px-4 text-[13px] font-medium transition-colors",
+        "h-9 shrink-0 rounded-lg border px-4 text-[13px] font-medium transition-colors",
         active ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 bg-white/[0.03] text-muted-foreground",
       )}
     >
@@ -539,7 +539,7 @@ function MonthView({ day, today, tz, appointments, onPickDay }: {
               <span className={cn("grid size-7 place-items-center rounded-full font-mono text-[13px]", d === today ? "bg-electric text-white" : "text-halo")}>
                 {Number(d.slice(8))}
               </span>
-              {n > 0 && <span className="rounded-full bg-sky/15 px-1.5 text-[11px] font-medium text-sky">{n}</span>}
+              {n > 0 && <span className="rounded-md bg-sky/15 px-1.5 text-[11px] font-medium text-sky">{n}</span>}
             </button>
           );
         })}

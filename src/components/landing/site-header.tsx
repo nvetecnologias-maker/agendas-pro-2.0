@@ -10,11 +10,11 @@ import { useSmoothScroll } from "@/components/animations/smooth-scroll-provider"
 import { cn } from "@/lib/utils";
 
 const NAV: LiquidNavItem[] = [
-  { id: "inicio", label: "Início", href: "#inicio", icon: <House />, fx: "hop" },
-  { id: "funcionalidades", label: "Funcionalidades", href: "#funcionalidades", icon: <LayoutGrid />, fx: "pulse" },
-  { id: "como-funciona", label: "Como funciona", href: "#como-funciona", icon: <Workflow />, fx: "spin" },
-  { id: "planos", label: "Planos", href: "#planos", icon: <CreditCard />, fx: "tilt" },
-  { id: "faq", label: "Perguntas", href: "#faq", icon: <CircleHelp />, fx: "pulse" },
+  { id: "inicio", label: "Início", href: "#inicio", icon: <House /> },
+  { id: "funcionalidades", label: "Funcionalidades", href: "#funcionalidades", icon: <LayoutGrid /> },
+  { id: "como-funciona", label: "Como funciona", href: "#como-funciona", icon: <Workflow /> },
+  { id: "planos", label: "Planos", href: "#planos", icon: <CreditCard /> },
+  { id: "faq", label: "Perguntas", href: "#faq", icon: <CircleHelp /> },
 ];
 
 /** Seção visível no momento (scroll-spy) */

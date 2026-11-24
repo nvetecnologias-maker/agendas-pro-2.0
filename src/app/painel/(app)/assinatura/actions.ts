@@ -6,6 +6,7 @@ import { requirePanelAction } from "@/lib/panel/context";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSiteUrl } from "@/lib/supabase/env";
 import { getActiveGateway, hasServiceRole, PROVIDER_SLUG } from "@/lib/payments/server";
+import { PRIVACY_VERSION, TERMS_VERSION } from "@/lib/legal";
 import { asaas, GatewayError, mercadoPago, stripe, type CheckoutInput } from "@/lib/payments/providers";
 
 type Quote = {
@@ -42,6 +43,11 @@ export async function startCheckoutAction(planSlug: string, coupon?: string): Pr
   if (!hasServiceRole()) return { ok: false, error: NOT_READY };
   const gw = await getActiveGateway();
   if (!gw?.secret) return { ok: false, error: NOT_READY };
+
+  // registra a ciência dos documentos vigentes no momento da contratação (não bloqueia o pagamento)
+  await panel.supabase.rpc("accept_legal_documents", {
+    p_terms_version: TERMS_VERSION, p_privacy_version: PRIVACY_VERSION, p_source: "checkout",
+  });
 
   const admin = createAdminClient();
   const { data: settings } = await admin.from("platform_settings").select("public_base_url, platform_name").eq("id", true).maybeSingle();

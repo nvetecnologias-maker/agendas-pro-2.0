@@ -108,7 +108,7 @@ for c in columns:
     t["cols"].append(c)
 
 lines = [
-    "// ARQUIVO GERADO por scripts/gen-db-types.py — não edite à mão.",
+    "// ARQUIVO GERADO por scripts/gen-db-types.py; não edite à mão.",
     "",
     "export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];",
     "",

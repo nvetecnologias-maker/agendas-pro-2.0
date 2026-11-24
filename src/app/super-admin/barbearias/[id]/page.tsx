@@ -78,9 +78,9 @@ export default async function AdminShopDetailPage({ params }: { params: Promise<
               <Row label="Plano" value={<span className="font-medium text-halo">{sub.plan_name}</span>} />
               <Row label="Status" value={st && <Badge tone={st.tone}>{st.label}</Badge>} />
               <Row label="Valor" value={<span className="font-mono">{formatMoney(sub.amount_cents)}{PERIOD_SUFFIX[sub.billing_period]}</span>} />
-              <Row label="Período atual" value={`${formatDate(sub.current_period_start)} – ${formatDate(sub.current_period_end)}`} />
-              <Row label="Próxima cobrança" value={sub.next_billing_at ? formatDate(sub.next_billing_at) : "—"} />
-              <Row label="Gateway" value={sub.gateway ? GATEWAY_LABEL[sub.gateway] : "—"} />
+              <Row label="Período atual" value={`${formatDate(sub.current_period_start)} a ${formatDate(sub.current_period_end)}`} />
+              <Row label="Próxima cobrança" value={sub.next_billing_at ? formatDate(sub.next_billing_at) : "Não informado"} />
+              <Row label="Gateway" value={sub.gateway ? GATEWAY_LABEL[sub.gateway] : "Não informado"} />
               {sub.cancel_at_period_end && <Row label="Cancelamento" value="No fim do período" />}
             </dl>
           ) : (
@@ -91,7 +91,7 @@ export default async function AdminShopDetailPage({ params }: { params: Promise<
           <CardTitle className="mb-3">Responsável</CardTitle>
           {owner ? (
             <div className="grid gap-2 text-[14px]">
-              <p className="font-medium text-halo">{owner.name ?? "—"}</p>
+              <p className="font-medium text-halo">{owner.name ?? "Não informado"}</p>
               {owner.email && <a href={`mailto:${owner.email}`} className="flex items-center gap-2 text-muted-foreground"><Mail className="size-4" /> {owner.email}</a>}
               {owner.phone && (
                 <div className="flex flex-wrap gap-2 pt-1">
@@ -115,7 +115,7 @@ export default async function AdminShopDetailPage({ params }: { params: Promise<
         <StatCard label="Agendamentos 30d" value={stats.appointments_30d} hint={`${stats.public_bookings_30d} online · ${stats.appointments_total} no total`} />
         <StatCard label="Clientes" value={stats.customers} />
         <StatCard label="Profissionais ativos" value={stats.professionals} hint={`${stats.services} serviço(s) ativo(s)`} />
-        <StatCard label="Último agendamento" value={stats.last_appointment_at ? formatDate(stats.last_appointment_at) : "—"} hint={`Cliente desde ${formatDate(shop.created_at)}`} />
+        <StatCard label="Último agendamento" value={stats.last_appointment_at ? formatDate(stats.last_appointment_at) : "Não informado"} hint={`Cliente desde ${formatDate(shop.created_at)}`} />
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -141,7 +141,7 @@ export default async function AdminShopDetailPage({ params }: { params: Promise<
             <ul className="divide-y divide-white/[0.05]">
               {d.transactions.map((t) => (
                 <li key={t.id} className="flex items-center justify-between gap-3 px-4 py-3 text-[13px]">
-                  <div><p className="text-halo">{GATEWAY_LABEL[t.gateway]} · {t.method ?? "—"}</p><p className="text-subtle-foreground">{formatDateTime(t.paid_at ?? t.created_at)}</p></div>
+                  <div><p className="text-halo">{GATEWAY_LABEL[t.gateway]} · {t.method ?? "Não informado"}</p><p className="text-subtle-foreground">{formatDateTime(t.paid_at ?? t.created_at)}</p></div>
                   <div className="text-right"><p className="font-mono text-halo">{formatMoney(t.amount_cents)}</p><Badge tone={TX_STATUS_LABEL[t.status].tone}>{TX_STATUS_LABEL[t.status].label}</Badge></div>
                 </li>
               ))}
@@ -157,7 +157,7 @@ export default async function AdminShopDetailPage({ params }: { params: Promise<
             {d.audit.map((a, i) => (
               <li key={i} className="px-4 py-3 text-[13px]">
                 <p className="text-halo">{AUDIT_LABEL[a.action] ?? a.action}</p>
-                <p className="text-subtle-foreground">{formatDateTime(a.created_at)} · {a.actor_name ?? (a.actor_role === "system" ? "Sistema" : a.actor_role ?? "—")}</p>
+                <p className="text-subtle-foreground">{formatDateTime(a.created_at)} · {a.actor_name ?? (a.actor_role === "system" ? "Sistema" : a.actor_role ?? "Não informado")}</p>
               </li>
             ))}
           </ul>

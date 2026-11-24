@@ -22,7 +22,7 @@ export function AccordionTrigger({ className, children, ...props }: React.Compon
         {...props}
       >
         {children}
-        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-border bg-surface-2 transition-transform duration-300 group-data-[state=open]:rotate-45">
+        <span className="grid size-8 shrink-0 place-items-center rounded-xl border border-border bg-surface-2 transition-transform duration-300 group-data-[state=open]:rotate-45">
           <Plus className="size-4" aria-hidden />
         </span>
       </AccordionPrimitive.Trigger>

@@ -67,10 +67,10 @@ export function ImageUpload({
         )}
         {value && (
           <div className="absolute bottom-2 right-2 flex gap-1.5">
-            <button type="button" onClick={() => input.current?.click()} className="grid size-9 place-items-center rounded-full bg-ink/70 text-halo backdrop-blur" aria-label="Trocar imagem">
+            <button type="button" onClick={() => input.current?.click()} className="grid size-9 place-items-center rounded-xl bg-ink/70 text-halo backdrop-blur" aria-label="Trocar imagem">
               {busy ? <Loader2 className="size-4 animate-spin" /> : <ImagePlus className="size-4" />}
             </button>
-            <button type="button" onClick={() => onChange(null)} className="grid size-9 place-items-center rounded-full bg-ink/70 text-danger backdrop-blur" aria-label="Remover imagem">
+            <button type="button" onClick={() => onChange(null)} className="grid size-9 place-items-center rounded-xl bg-ink/70 text-danger backdrop-blur" aria-label="Remover imagem">
               <Trash2 className="size-4" />
             </button>
           </div>

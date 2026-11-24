@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CalendarClock, Scissors, Sparkles, Users, Wallet } from "lucide-react";
+import { notFound } from "next/navigation";
+import { ArrowRight, CalendarClock, Scissors, Users, Wallet } from "lucide-react";
 import { RibbonField, AGENDAS_PRO_RIBBON_SUBTLE } from "@/components/animations/ribbon-field";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const metadata: Metadata = { title: "Design system · Agendas Pro" };
+export const metadata: Metadata = { title: "Design system · Agendas Pro", robots: { index: false, follow: false } };
 
 const PALETTE = [
   { name: "Azul-marinho profundo", token: "navy", hex: "#030B20", use: "Fundo base" },
@@ -20,11 +21,13 @@ const PALETTE = [
   { name: "Azul Lapis", token: "lapis", hex: "#083DA9", use: "Gradientes, estados ativos" },
   { name: "Azul elétrico", token: "electric", hex: "#2467F2", use: "Ação principal" },
   { name: "Azul claro", token: "sky", hex: "#75B5FF", use: "Destaques, foco, links" },
-  { name: "Branco", token: "halo", hex: "#F7F3FF", use: "Texto principal" },
+  { name: "Branco", token: "halo", hex: "#F5F8FF", use: "Texto principal" },
   { name: "Preto", token: "ink", hex: "#000000", use: "Sombras, gradiente final" },
 ];
 
+/** Página interna de referência visual: não existe em produção */
 export default function DesignSystemPage() {
+  if (process.env.VERCEL_ENV === "production") notFound();
   return (
     <div className="pb-24">
       {/* HERO com o Ribbon Field nos parâmetros oficiais */}
@@ -43,10 +46,10 @@ export default function DesignSystemPage() {
             </div>
           </nav>
           <div className="max-w-2xl py-12">
-            <Badge tone="brand" className="mb-5"><Sparkles className="size-3" /> Design system · Fase 1</Badge>
+            <Badge tone="brand" className="mb-5">Referência interna de componentes</Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-              <span className="text-gradient">Sua barbearia merece</span>
-              <br /> uma gestão à altura.
+              <span className="text-gradient">Agenda online e gestão</span>
+              <br /> para barbearias.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
               Ribbon Field animado com os parâmetros do briefing (stripes, ângulo 136, 12 faixas, grão 8, vinheta 3),

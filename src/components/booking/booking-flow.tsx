@@ -116,7 +116,7 @@ export function BookingFlow({ data, preview }: { data: Data; preview: boolean })
         {step !== "servico" && step !== "feito" && (
           <div className="mb-5 flex items-center gap-3">
             <button type="button" onClick={back} aria-label="Voltar"
-              className="grid size-11 shrink-0 place-items-center rounded-full bg-white/[0.06] text-halo active:scale-95">
+              className="grid size-11 shrink-0 place-items-center rounded-xl bg-white/[0.06] text-halo active:scale-95">
               <ArrowLeft className="size-5" />
             </button>
             <div className="min-w-0 flex-1">
@@ -222,14 +222,14 @@ function Hero({ data, compact }: { data: Data; compact: boolean }) {
             <div className="ml-auto flex gap-2 pb-1">
               {shop.whatsapp && (
                 <a href={whatsappLink(shop.whatsapp, `Olá, ${shop.name}!`)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-                  className="grid size-11 place-items-center rounded-full bg-white/[0.08] backdrop-blur active:scale-95"><MessageCircle className="size-5" /></a>
+                  className="grid size-11 place-items-center rounded-xl bg-white/[0.08] backdrop-blur active:scale-95"><MessageCircle className="size-5" /></a>
               )}
               {maps && (
                 <a href={maps} target="_blank" rel="noopener noreferrer" aria-label="Como chegar"
-                  className="grid size-11 place-items-center rounded-full bg-white/[0.08] backdrop-blur active:scale-95"><Navigation className="size-5" /></a>
+                  className="grid size-11 place-items-center rounded-xl bg-white/[0.08] backdrop-blur active:scale-95"><Navigation className="size-5" /></a>
               )}
               <button type="button" onClick={share} aria-label="Compartilhar"
-                className="grid size-11 place-items-center rounded-full bg-white/[0.08] backdrop-blur active:scale-95"><Share2 className="size-5" /></button>
+                className="grid size-11 place-items-center rounded-xl bg-white/[0.08] backdrop-blur active:scale-95"><Share2 className="size-5" /></button>
             </div>
           )}
         </div>
@@ -281,7 +281,7 @@ function ServiceStep({ services, onPick, brand, welcome }: { services: PublicSer
                 </span>
                 <span className="flex shrink-0 flex-col items-end gap-1.5">
                   <span className="font-mono text-[15px] text-halo">{formatMoney(s.price_cents)}</span>
-                  <span className="inline-flex h-8 items-center gap-0.5 rounded-full px-3 text-[13px] font-medium" style={{ background: "var(--brand)", color: "var(--on-brand)" }}>
+                  <span className="inline-flex h-8 items-center gap-0.5 rounded-lg px-3 text-[13px] font-medium" style={{ background: "var(--brand)", color: "var(--on-brand)" }}>
                     Agendar <ChevronRight className="size-3.5" />
                   </span>
                 </span>
@@ -435,7 +435,7 @@ function TimeStep({
           <div className="rounded-2xl border border-white/[0.07] bg-surface-1 p-5 text-center">
             <p className="text-sm text-muted-foreground">Sem horários livres neste dia.</p>
             <button type="button" onClick={nextWithSlots} disabled={loading}
-              className="mt-3 inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium" style={{ background: brand, color: ink }}>
+              className="mt-3 inline-flex h-11 items-center gap-2 rounded-lg px-5 text-sm font-medium" style={{ background: brand, color: ink }}>
               {loading ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />} Próximo dia com horário
             </button>
           </div>
@@ -509,7 +509,7 @@ function DetailsStep({
       <h2 className="text-lg font-semibold text-halo">Seus dados</h2>
       <div className="mt-3 rounded-2xl border border-white/[0.07] bg-surface-1 p-4">
         <p className="text-[15px] font-medium text-halo">{service.name}</p>
-        <p className="mt-1 text-[14px] text-muted-foreground">{formatDayLong(toLocalDayFromIso(slot.starts_at, tz))} · {toLocalTime(slot.starts_at, tz)}–{toLocalTime(slot.ends_at, tz)}</p>
+        <p className="mt-1 text-[14px] text-muted-foreground">{formatDayLong(toLocalDayFromIso(slot.starts_at, tz))} · {toLocalTime(slot.starts_at, tz)} às {toLocalTime(slot.ends_at, tz)}</p>
         <div className="mt-3 flex items-center justify-between border-t border-white/[0.06] pt-3 text-[14px]">
           <span className="flex items-center gap-1.5 text-muted-foreground"><UserRound className="size-4" /> {anyPro ? "Profissional disponível" : proName}</span>
           <span className="font-mono text-halo">{formatMoney(service.price_cents)}</span>
@@ -532,7 +532,8 @@ function DetailsStep({
           <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} maxLength={500} placeholder="Ex.: degradê baixo, barba desenhada" />
         </label>
         <p className="text-[12px] leading-relaxed text-subtle-foreground">
-          {policy ? `${policy} ` : ""}Você pode cancelar pelo link do agendamento até {cancelHours}h antes. Seus dados são usados só pela barbearia para este atendimento.
+          {policy ? `${policy} ` : ""}Você pode cancelar pelo link do agendamento até {cancelHours}h antes. Seus dados são usados pela barbearia para este atendimento, conforme a{" "}
+          <Link href="/politica-de-privacidade" target="_blank" className="underline underline-offset-2 hover:text-halo">Política de Privacidade</Link>.
         </p>
         <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/[0.07] bg-ink/90 px-4 pb-[max(env(safe-area-inset-bottom),12px)] pt-3 backdrop-blur-xl">
           <div className="mx-auto max-w-xl">
@@ -578,7 +579,7 @@ function Done({ result, shopAddress: address, brand, ink, onAgain }: { result: P
 
       <div className="mt-6 rounded-2xl border border-white/[0.07] bg-surface-1 p-4 text-left">
         <p className="text-[15px] font-medium text-halo">{result.service_name}</p>
-        <p className="mt-1 text-[14px] text-muted-foreground">{formatDayLong(day)} · {toLocalTime(result.starts_at, tz)}–{toLocalTime(result.ends_at, tz)}</p>
+        <p className="mt-1 text-[14px] text-muted-foreground">{formatDayLong(day)} · {toLocalTime(result.starts_at, tz)} às {toLocalTime(result.ends_at, tz)}</p>
         <div className="mt-3 flex items-center justify-between border-t border-white/[0.06] pt-3 text-[14px]">
           <span className="flex items-center gap-1.5 text-muted-foreground"><UserRound className="size-4" /> {result.professional_name}</span>
           <span className="font-mono text-halo">{formatMoney(result.price_cents)}</span>
@@ -663,7 +664,7 @@ function ShopInfo({ data, showPros }: { data: Data; showPros: boolean }) {
             <li key={wd} className="flex items-center justify-between py-3 text-[14px]">
               <span className="text-muted-foreground">{WEEKDAYS[wd]}</span>
               <span className={cn("font-mono", ranges.length ? "text-halo" : "text-subtle-foreground")}>
-                {ranges.length ? ranges.map((r) => `${r.starts_at}–${r.ends_at}`).join(" · ") : "Fechado"}
+                {ranges.length ? ranges.map((r) => `${r.starts_at} às ${r.ends_at}`).join(" · ") : "Fechado"}
               </span>
             </li>
           ))}

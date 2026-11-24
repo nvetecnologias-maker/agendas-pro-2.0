@@ -11,7 +11,7 @@ values
    4990, 'monthly', 14, false, null, false, 1),
   ('11111111-0000-4000-8000-000000000002', 'Profissional', 'profissional',
    'Para barbearias com equipe que querem controle total da operação.',
-   9990, 'monthly', 14, true, 'Mais escolhido', true, 2),
+   9990, 'monthly', 14, true, 'Recomendado', true, 2),
   ('11111111-0000-4000-8000-000000000003', 'Premium', 'premium',
    'Para redes e barbearias grandes, sem limites.',
    19990, 'monthly', 14, false, null, false, 3)

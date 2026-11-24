@@ -14,7 +14,7 @@
   --ap-lapis: #083da9;     /* Azul Lapis */
   --ap-electric: #2467f2;  /* Azul elétrico: ação principal */
   --ap-sky: #75b5ff;       /* Azul claro: destaques, foco */
-  --ap-halo: #f7f3ff;      /* Branco */
+  --ap-halo: #f5f8ff;      /* Branco */
   --ap-ink: #000000;       /* Preto */
 
   /* Superfícies (sólidas, para leitura e hierarquia) */
@@ -42,7 +42,7 @@
   --warning: #fbbf24;
   --danger: #f87171;
 
-  --radius: 14px;
+  --radius: 10px;
 }
 
 @theme inline {
@@ -70,11 +70,13 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
 
-  --radius-sm: calc(var(--radius) - 6px);
-  --radius-md: calc(var(--radius) - 3px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 6px);
-  --radius-2xl: calc(var(--radius) + 14px);
+  /* cantos levemente arredondados: nada de botões em formato de pílula */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -176,7 +178,7 @@ body {
   color: transparent;
 }
 
-/* Borda animada (border beam) */
+/* Borda de destaque (estática: sem animação contínua) */
 @utility border-beam {
   position: relative;
   &::before {
@@ -185,11 +187,10 @@ body {
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: conic-gradient(from var(--beam-angle), transparent 0 70%, var(--ap-sky) 82%, var(--ap-electric) 90%, transparent 100%);
+    background: linear-gradient(160deg, rgba(117, 181, 255, 0.55), rgba(36, 103, 242, 0.15) 40%, transparent 70%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    animation: var(--animate-beam);
     pointer-events: none;
   }
 }
@@ -216,17 +217,9 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 
-/* Liquid Navbar: cenas dos ícones ao toque */
-.liquid-nav-icon svg { transition: transform .45s cubic-bezier(.3,1.6,.5,1); }
-.liquid-nav [aria-current="true"] .liquid-nav-icon svg { transform: translateY(-1px) scale(1.08); }
-.liquid-nav-icon[data-fx="hop"] svg { animation: lnHop .8s cubic-bezier(.3,1.4,.5,1) both; transform-origin: 50% 100%; }
-.liquid-nav-icon[data-fx="spin"] svg { animation: lnSpin .9s cubic-bezier(.2,.75,.25,1) both; }
-.liquid-nav-icon[data-fx="pulse"] svg { animation: lnPulse .6s cubic-bezier(.3,1.6,.5,1) both; }
-.liquid-nav-icon[data-fx="tilt"] svg { animation: lnTilt .9s ease-in-out both; transform-origin: 50% 90%; }
-@keyframes lnHop { 0%{transform:none} 30%{transform:translateY(-5px) scale(1.04,.96)} 55%{transform:scale(1.12,.88)} 75%{transform:translateY(-2px) scale(.98,1.04)} 100%{transform:translateY(-1px) scale(1.08)} }
-@keyframes lnSpin { from{transform:perspective(80px) rotateY(0)} to{transform:perspective(80px) rotateY(360deg) translateY(-1px) scale(1.08)} }
-@keyframes lnPulse { 0%{transform:scale(.72)} 60%{transform:scale(1.2)} 100%{transform:translateY(-1px) scale(1.08)} }
-@keyframes lnTilt { 0%{transform:none} 20%{transform:rotate(-14deg)} 40%{transform:rotate(11deg)} 60%{transform:rotate(-7deg)} 80%{transform:rotate(3deg)} 100%{transform:translateY(-1px) scale(1.08)} }
+/* Liquid Navbar: ícone ativo levemente destacado (sem animações chamativas) */
+.liquid-nav-icon svg { transition: transform .2s ease-out; }
+.liquid-nav [aria-current="true"] .liquid-nav-icon svg { transform: scale(1.06); }
 
 /* Painel: a coluna raiz das páginas nunca cresce além da tela (inputs de hora,
    abas com rolagem etc. encolhem em vez de empurrar a página para o lado).

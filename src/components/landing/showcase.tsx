@@ -42,7 +42,7 @@ export function Showcase() {
       <ParallaxLayers className="relative mx-auto mt-16 h-[620px] max-w-7xl px-4 sm:h-[680px] sm:px-6">
         {/* camada 1: luz de fundo (mais lenta) */}
         <div data-parallax-speed="40" className="absolute inset-x-6 top-10 bottom-10 overflow-hidden rounded-[40px] opacity-70">
-          <RibbonField params={AGENDAS_PRO_RIBBON_SUBTLE} quality={0.4} className="size-full" />
+          <RibbonField params={AGENDAS_PRO_RIBBON_SUBTLE} still quality={0.4} className="size-full" />
         </div>
 
         {/* camada 2: agenda semanal */}
@@ -52,7 +52,7 @@ export function Showcase() {
               <p className="flex items-center gap-2 text-sm font-medium text-halo">
                 <CalendarDays className="size-4 text-sky" aria-hidden /> Semana de 23 a 28 de novembro
               </p>
-              <span className="rounded-full border border-sky/20 bg-sky/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-sky">Exemplo</span>
+              <span className="rounded-md border border-sky/20 bg-sky/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-sky">Exemplo</span>
             </div>
             <div className="grid grid-cols-[26px_repeat(6,minmax(0,1fr))] gap-1 text-[10px] sm:grid-cols-[36px_repeat(6,minmax(0,1fr))] sm:gap-1.5">
               <span />

@@ -169,7 +169,7 @@ function ServiceForm({ shopId, s, professionals, onDone }: { shopId: string; s: 
         </div>
         <div className="flex flex-wrap gap-2">
           {[15, 30, 45, 60, 90].map((m) => (
-            <button key={m} type="button" onClick={() => setDuration(String(m))} className={cn("h-9 rounded-full border px-3 text-[13px]", Number(duration) === m ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}>{formatDuration(m)}</button>
+            <button key={m} type="button" onClick={() => setDuration(String(m))} className={cn("h-9 rounded-lg border px-3 text-[13px]", Number(duration) === m ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}>{formatDuration(m)}</button>
           ))}
         </div>
         <Field id="s-cat" label="Categoria" hint="Opcional. Ex.: Cabelo, Barba, Combos"><Input value={category} onChange={(e) => setCategory(e.target.value)} className="h-12" /></Field>
@@ -185,7 +185,7 @@ function ServiceForm({ shopId, s, professionals, onDone }: { shopId: string; s: 
                 const on = pros.includes(p.id);
                 return (
                   <button key={p.id} type="button" aria-pressed={on} onClick={() => setPros(on ? pros.filter((x) => x !== p.id) : [...pros, p.id])}
-                    className={cn("h-10 rounded-full border px-4 text-[13px]", on ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground", !p.is_active && "opacity-60")}>
+                    className={cn("h-10 rounded-lg border px-4 text-[13px]", on ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground", !p.is_active && "opacity-60")}>
                     {p.name}
                   </button>
                 );

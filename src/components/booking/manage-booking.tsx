@@ -52,13 +52,13 @@ export function ManageBooking({ initial }: { initial: PublicAppointment }) {
           <ChevronLeft className="size-4" /> {appt.shop.name}
         </Link>
         <h1 className="mt-2 text-2xl font-semibold">Meu agendamento</h1>
-        <span className={cn("mt-3 inline-flex h-7 items-center rounded-full px-3 text-[13px] font-medium", st.cls)}>{st.label}</span>
+        <span className={cn("mt-3 inline-flex h-7 items-center rounded-lg px-3 text-[13px] font-medium", st.cls)}>{st.label}</span>
 
         <div className="mt-5 overflow-hidden rounded-2xl border border-white/[0.07] bg-surface-1">
           <div className="p-4" style={{ background: `linear-gradient(135deg, ${brand}33, transparent 70%)` }}>
             <p className="text-lg font-semibold">{appt.service_name}</p>
             <p className="mt-1 text-[15px] text-halo">{formatDayLong(day)}</p>
-            <p className="flex items-center gap-1.5 text-[14px] text-muted-foreground"><Clock className="size-4" /> {toLocalTime(appt.starts_at, tz)}–{toLocalTime(appt.ends_at, tz)}</p>
+            <p className="flex items-center gap-1.5 text-[14px] text-muted-foreground"><Clock className="size-4" /> {toLocalTime(appt.starts_at, tz)} às {toLocalTime(appt.ends_at, tz)}</p>
           </div>
           <dl className="divide-y divide-white/[0.06] px-4 text-[14px]">
             <div className="flex items-center justify-between py-3"><dt className="flex items-center gap-1.5 text-muted-foreground"><UserRound className="size-4" /> Profissional</dt><dd>{appt.professional_name}</dd></div>

@@ -81,7 +81,7 @@ export function MyPageClient({
         ) : (
           <div className="mt-1 flex items-center gap-2">
             <p className="min-w-0 break-all font-mono text-lg font-semibold text-white md:text-2xl">{display}</p>
-            <button type="button" onClick={() => setEditSlug(true)} className="grid size-9 shrink-0 place-items-center rounded-full bg-white/10 text-halo" aria-label="Editar link"><Pencil className="size-4" /></button>
+            <button type="button" onClick={() => setEditSlug(true)} className="grid size-9 shrink-0 place-items-center rounded-xl bg-white/10 text-halo" aria-label="Editar link"><Pencil className="size-4" /></button>
           </div>
         )}
 

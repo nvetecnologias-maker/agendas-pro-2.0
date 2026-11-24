@@ -50,7 +50,7 @@ export function ProfessionalsClient({ shopId, professionals, services, limit }: 
                 <Avatar name={p.name} src={p.photo_url} className="size-14 text-base" />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-medium text-halo">{p.name}</p>
-                  <p className="truncate text-[13px] text-muted-foreground">{p.specialties.length ? p.specialties.join(" · ") : formatPhone(p.phone) || "—"}</p>
+                  <p className="truncate text-[13px] text-muted-foreground">{p.specialties.length ? p.specialties.join(" · ") : formatPhone(p.phone) || "Não informado"}</p>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     <Badge tone={p.is_active ? "success" : "neutral"} dot>{p.is_active ? "Ativo" : "Inativo"}</Badge>
                     <Badge>{p.serviceIds.length} serviço(s)</Badge>
@@ -115,7 +115,7 @@ export function ProfessionalForm({ shopId, p, services, onDone }: { shopId: stri
                 const on = svc.includes(s.id);
                 return (
                   <button key={s.id} type="button" aria-pressed={on} onClick={() => setSvc(on ? svc.filter((x) => x !== s.id) : [...svc, s.id])}
-                    className={cn("h-10 rounded-full border px-4 text-[13px]", on ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}>
+                    className={cn("h-10 rounded-lg border px-4 text-[13px]", on ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}>
                     {s.name}
                   </button>
                 );

@@ -128,7 +128,7 @@ export function PanelShell({ items, shopName, shopLogo, planName, userName, role
           <button
             type="button"
             onClick={() => setMoreOpen(true)}
-            className="grid size-10 place-items-center rounded-full bg-white/5 text-halo"
+            className="grid size-10 place-items-center rounded-xl bg-white/5 text-halo"
             aria-label="Abrir menu"
           >
             <Menu className="size-5" />
@@ -228,7 +228,7 @@ function TabLink({ item, active }: { item: ShellNavItem; active: boolean }) {
 function Bell({ count, active }: { count: number; active: boolean }) {
   return (
     <Link href="/painel/avisos" aria-label={count ? `Avisos: ${count} não lido(s)` : "Avisos"}
-      className={cn("relative grid size-10 place-items-center rounded-full text-halo", active ? "bg-electric/25" : "bg-white/5 hover:bg-white/10")}>
+      className={cn("relative grid size-10 place-items-center rounded-xl text-halo", active ? "bg-electric/25" : "bg-white/5 hover:bg-white/10")}>
       <BellIcon className="size-5" aria-hidden />
       {count > 0 && (
         <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-electric px-1 font-mono text-[10px] font-semibold text-white ring-2 ring-navy">

@@ -7,8 +7,8 @@ reset role;
 select from tests.logout();
 
 insert into auth.users (email, raw_user_meta_data) values
-  ('dono-pag@teste.dev', '{"full_name":"Dono Pagante","phone":"11955554444","barbershop_name":"Barbearia Pagamento"}'),
-  ('intruso-pag@teste.dev', '{"full_name":"Intruso","barbershop_name":"Barbearia Intrusa"}');
+  ('dono-pag@teste.dev', '{"full_name":"Dono Pagante","phone":"11955554444","barbershop_name":"Barbearia Pagamento","terms_version":"2026-11-24","privacy_version":"2026-11-24"}'),
+  ('intruso-pag@teste.dev', '{"full_name":"Intruso","barbershop_name":"Barbearia Intrusa","terms_version":"2026-11-24","privacy_version":"2026-11-24"}');
 
 insert into public.coupons (name, code, discount_type, discount_value, extra_trial_days, audience, applicable_plan_ids, max_redemptions, is_active) values
   ('Metade', 'METADE', 'percent', 50, 0, 'new_customers', '{}', 10, true),

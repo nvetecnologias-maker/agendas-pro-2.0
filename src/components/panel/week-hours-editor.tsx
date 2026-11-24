@@ -21,7 +21,7 @@ export function WeekHoursEditor({ value, onChange }: { value: DayRanges[]; onCha
           <div key={wd} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] px-3 py-1">
             <Switch
               label={WEEKDAYS[wd]}
-              description={open ? d.ranges.map((r) => `${r.start}–${r.end}`).join(" · ") : "Fechado"}
+              description={open ? d.ranges.map((r) => `${r.start} às ${r.end}`).join(" · ") : "Fechado"}
               checked={open}
               onCheckedChange={(v) => set(wd, v ? [{ start: "09:00", end: "18:00" }] : [])}
             />
@@ -46,12 +46,12 @@ export function WeekHoursEditor({ value, onChange }: { value: DayRanges[]; onCha
                     const last = d.ranges[d.ranges.length - 1];
                     const start = last ? last.end : "09:00";
                     set(wd, [...d.ranges, { start, end: start < "20:00" ? "20:00" : "23:00" }]);
-                  }} className="inline-flex h-9 items-center gap-1.5 rounded-full bg-white/5 px-3 text-[13px] text-sky">
+                  }} className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-white/5 px-3 text-[13px] text-sky">
                     <Plus className="size-4" /> Adicionar faixa (intervalo)
                   </button>
                   <button type="button" onClick={() => onChange(value.map((x) => (x.weekday === 0 || x.weekday === wd ? x : { ...x, ranges: d.ranges.map((r) => ({ ...r })) })))}
-                    className="inline-flex h-9 items-center gap-1.5 rounded-full bg-white/5 px-3 text-[13px] text-muted-foreground">
-                    <Copy className="size-4" /> Copiar para seg–sáb
+                    className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-white/5 px-3 text-[13px] text-muted-foreground">
+                    <Copy className="size-4" /> Copiar para seg a sáb
                   </button>
                 </div>
               </div>

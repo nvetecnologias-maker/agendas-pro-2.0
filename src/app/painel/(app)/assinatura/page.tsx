@@ -58,7 +58,7 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
             <Badge tone={st.tone} dot>{st.label}</Badge>
           </div>
           <p className="mt-3 text-[13px] text-halo/70">Plano atual</p>
-          <p className="text-3xl font-semibold text-white">{sub.plan?.name ?? "—"}</p>
+          <p className="text-3xl font-semibold text-white">{sub.plan?.name ?? "Não informado"}</p>
           <p className="mt-1 font-mono text-halo/80">{formatMoney(sub.amount_cents)}{PERIOD_LABEL[sub.billing_period].short}</p>
         </section>
       ) : (
@@ -69,7 +69,7 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
         <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <StatCard label="Contratado em" value={formatDate(sub.started_at, tz)} />
           <StatCard label={sub.status === "trial" ? "Teste termina em" : "Vencimento"} value={formatDate(sub.current_period_end, tz)} />
-          <StatCard label="Próxima cobrança" value={sub.next_billing_at ? formatDate(sub.next_billing_at, tz) : "—"} />
+          <StatCard label="Próxima cobrança" value={sub.next_billing_at ? formatDate(sub.next_billing_at, tz) : "Não informado"} />
           <StatCard tone="brand" label="Dias restantes" value={Math.max(0, daysLeft)} />
         </section>
       )}

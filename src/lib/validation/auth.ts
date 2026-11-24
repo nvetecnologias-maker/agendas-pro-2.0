@@ -25,6 +25,10 @@ export const signUpSchema = z
     barbershopName: z.string().trim().min(2, "Informe o nome da barbearia.").max(120),
     password,
     confirmPassword: z.string(),
+    // caixa de confirmação: precisa ser marcada pela própria pessoa (nunca vem marcada)
+    acceptLegal: z.literal("on", {
+      error: "Para criar a conta, confirme que leu e aceita os Termos de Uso e a Política de Privacidade.",
+    }),
   })
   .refine((d) => d.password === d.confirmPassword, {
     message: "As senhas não conferem.",

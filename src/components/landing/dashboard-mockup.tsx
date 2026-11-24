@@ -38,8 +38,8 @@ export function DashboardMockup({ className }: { className?: string }) {
         <span className="size-2.5 rounded-full bg-white/15" />
         <span className="size-2.5 rounded-full bg-white/15" />
         <span className="size-2.5 rounded-full bg-white/15" />
-        <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] text-subtle-foreground">app.agendaspro.com.br/painel</span>
-        <span className="ml-auto rounded-full border border-sky/20 bg-sky/10 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-sky">
+        <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] text-subtle-foreground">Painel do barbeiro</span>
+        <span className="ml-auto rounded-md border border-sky/20 bg-sky/10 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-sky">
           Dados de exemplo
         </span>
       </div>

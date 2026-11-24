@@ -7,7 +7,7 @@ select from tests.logout();
 
 insert into auth.users (email, raw_user_meta_data) values
   ('admin@teste.dev', '{"full_name":"Admin Plataforma"}'),
-  ('cliente-sa@teste.dev', '{"full_name":"Dono Alvo","phone":"11966665555","barbershop_name":"Barbearia Alvo"}');
+  ('cliente-sa@teste.dev', '{"full_name":"Dono Alvo","phone":"11966665555","barbershop_name":"Barbearia Alvo","terms_version":"2026-11-24","privacy_version":"2026-11-24"}');
 update public.profiles set platform_role = 'super_admin' where email = 'admin@teste.dev';
 
 create temp table sa as

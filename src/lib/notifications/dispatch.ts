@@ -17,7 +17,7 @@ export function toE164BR(phone: string): string | null {
 }
 
 export function emailHtml(n: Pick<Notification, "title" | "body">, link: string | null, platform = "Agendas Pro") {
-  return `<!doctype html><html><body style="margin:0;background:#030B20;font-family:Arial,Helvetica,sans-serif;color:#F7F3FF">
+  return `<!doctype html><html><body style="margin:0;background:#030B20;font-family:Arial,Helvetica,sans-serif;color:#F5F8FF">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px">
 <table role="presentation" width="100%" style="max-width:480px;background:#06143a;border-radius:20px;border:1px solid #102a6b">
 <tr><td style="padding:28px">
