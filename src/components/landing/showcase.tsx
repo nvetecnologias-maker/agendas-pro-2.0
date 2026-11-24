@@ -54,7 +54,7 @@ export function Showcase() {
               </p>
               <span className="rounded-full border border-sky/20 bg-sky/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-sky">Exemplo</span>
             </div>
-            <div className="grid grid-cols-[36px_repeat(6,1fr)] gap-1.5 text-[10px]">
+            <div className="grid grid-cols-[26px_repeat(6,minmax(0,1fr))] gap-1 text-[10px] sm:grid-cols-[36px_repeat(6,minmax(0,1fr))] sm:gap-1.5">
               <span />
               {DAYS.map((d) => (
                 <span key={d} className="pb-1 text-center text-subtle-foreground">{d}</span>
@@ -109,7 +109,7 @@ function Row({ hour, slot }: { hour: string; slot: number }) {
             style={ev ? { gridRow: `span ${ev.len}`, height: "auto" } : undefined}
           >
             {ev && (
-              <div className={cn("h-full rounded-lg bg-gradient-to-br p-1.5 text-[9px] leading-tight text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] sm:text-[10px]", ev.tone)}>
+              <div className={cn("h-full overflow-hidden break-words rounded-lg bg-gradient-to-br p-1 text-[8px] leading-tight sm:p-1.5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] sm:text-[10px]", ev.tone)}>
                 {ev.label}
               </div>
             )}
