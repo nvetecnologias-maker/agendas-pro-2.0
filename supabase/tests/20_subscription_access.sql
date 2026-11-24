@@ -65,4 +65,4 @@ reset role;
 select tests.logout();
 
 \echo ''
-\echo '✅ Todos os testes de banco passaram.'
+\echo '✅ Testes de assinatura passaram.'
