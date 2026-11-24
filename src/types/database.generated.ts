@@ -1324,6 +1324,14 @@ export type Database = {
       };
     };
     Views: {
+      coupon_usage: {
+        Row: {
+          coupon_id: string | null;
+          redemptions: number | null;
+          discount_cents: number | null;
+        };
+        Relationships: [];
+      };
       customer_stats: {
         Row: {
           customer_id: string | null;
@@ -1335,8 +1343,31 @@ export type Database = {
         };
         Relationships: [];
       };
+      payment_gateways_admin: {
+        Row: {
+          id: string | null;
+          provider: Database["public"]["Enums"]["payment_gateway"] | null;
+          environment: Database["public"]["Enums"]["gateway_environment"] | null;
+          is_active: boolean | null;
+          public_key: string | null;
+          enabled_methods: string[] | null;
+          updated_at: string | null;
+          has_secret: boolean | null;
+          has_webhook_secret: boolean | null;
+        };
+        Relationships: [];
+      };
     };
     Functions: {
+      admin_barbershop_detail: { Args: { p_barbershop_id: string }; Returns: Json };
+      admin_change_plan: { Args: { p_barbershop_id: string; p_plan_id: string; p_status?: Database["public"]["Enums"]["subscription_status"]; p_period_days?: number; p_reason?: string }; Returns: string };
+      admin_grant_days: { Args: { p_barbershop_id: string; p_days: number; p_reason?: string }; Returns: string };
+      admin_list_barbershops: { Args: { p_search?: string; p_shop_status?: string; p_sub_status?: string; p_limit?: number; p_offset?: number }; Returns: { id: string; name: string; slug: string; status: Database["public"]["Enums"]["barbershop_status"]; created_at: string; published: boolean; owner_name: string; owner_email: string; owner_phone: string; plan_name: string; sub_status: Database["public"]["Enums"]["subscription_status"]; period_end: string; amount_cents: number; billing_period: Database["public"]["Enums"]["billing_period"]; professionals: number; appointments_30d: number; total_count: number }[] };
+      admin_overview: { Args: Record<PropertyKey, never>; Returns: Json };
+      admin_save_gateway: { Args: { p_provider: Database["public"]["Enums"]["payment_gateway"]; p_environment: Database["public"]["Enums"]["gateway_environment"]; p_public_key: string; p_enabled_methods: string[]; p_is_active: boolean; p_secret_key?: string; p_webhook_secret?: string }; Returns: string };
+      admin_set_shop_status: { Args: { p_barbershop_id: string; p_status: Database["public"]["Enums"]["barbershop_status"]; p_reason?: string }; Returns: undefined };
+      admin_set_subscription_status: { Args: { p_barbershop_id: string; p_status: Database["public"]["Enums"]["subscription_status"]; p_reason?: string }; Returns: undefined };
+      assert_super_admin: { Args: Record<PropertyKey, never>; Returns: undefined };
       barbershop_access_level: { Args: { p_barbershop_id: string }; Returns: string };
       can_operate: { Args: { p_barbershop_id: string }; Returns: boolean };
       cancel_public_appointment: { Args: { p_token: string; p_reason?: string }; Returns: Json };
@@ -1354,6 +1385,7 @@ export type Database = {
       is_shop_manager: { Args: { shop_id: string }; Returns: boolean };
       is_shop_member: { Args: { shop_id: string }; Returns: boolean };
       is_super_admin: { Args: Record<PropertyKey, never>; Returns: boolean };
+      monthly_cents: { Args: { p_amount: number; p_period: Database["public"]["Enums"]["billing_period"] }; Returns: number };
       plan_limit: { Args: { p_barbershop_id: string; p_feature_key: string }; Returns: number };
       shares_shop_with: { Args: { p_user_id: string }; Returns: boolean };
       slugify: { Args: { value: string }; Returns: string };
