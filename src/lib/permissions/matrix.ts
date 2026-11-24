@@ -83,3 +83,8 @@ export const ACCESS_LABELS: Record<AccessLevel, string> = {
   billing_only: "Assinatura inativa",
   blocked: "Conta suspensa",
 };
+
+/** O papel enxerga a área? (independe da assinatura; ações continuam passando por `can`) */
+export function roleHas(role: ShopRole | null | undefined, action: Action): boolean {
+  return !!role && ROLE_PERMISSIONS[role].includes(action);
+}

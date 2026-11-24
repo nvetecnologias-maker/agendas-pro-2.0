@@ -55,6 +55,12 @@ select 'bbbbbbbb-0000-4000-8000-0000000000c1', shop_b, 'Cliente B', '11933334444
 insert into public.payments (barbershop_id, amount_cents, method)
 select shop_a, 4500, 'pix' from ids;
 
+-- Agenda da A: profissional realiza o corte; barbearia abre 09h–19h todos os dias
+insert into public.professional_services (barbershop_id, professional_id, service_id)
+select shop_a, 'aaaaaaaa-0000-4000-8000-000000000001', 'aaaaaaaa-0000-4000-8000-0000000000a1' from ids;
+insert into public.working_hours (barbershop_id, weekday, starts_at, ends_at)
+select shop_a, d, '09:00', '19:00' from ids, generate_series(0, 6) d;
+
 -- ============================================================================
 \echo '— Isolamento entre barbearias (João = dono da A)'
 select tests.login_as('joao@teste.dev');
