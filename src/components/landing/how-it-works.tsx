@@ -3,7 +3,7 @@ import { Reveal } from "@/components/animations/reveal";
 import { SectionHeading } from "./section-heading";
 
 const STEPS = [
-  { icon: UserPlus, title: "Crie sua conta", text: "Cadastro em 1 minuto, sem cartão. Seu período de teste começa na hora." },
+  { icon: UserPlus, title: "Crie sua conta", text: "Informe seus dados e os da barbearia. Não pedimos cartão e o período de teste começa na hora." },
   { icon: Scissors, title: "Configure a barbearia", text: "Horários, serviços, preços e profissionais, com um passo a passo guiado." },
   { icon: Share2, title: "Compartilhe seu link", text: "Envie no WhatsApp, coloque na bio do Instagram ou imprima o QR Code." },
   { icon: CalendarCheck2, title: "Receba agendamentos", text: "Os clientes marcam sozinhos e você acompanha tudo pelo painel." },
@@ -17,7 +17,7 @@ export function HowItWorks() {
         <SectionHeading
           id="como-funciona-title"
           eyebrow="Como funciona"
-          title="Da conta criada ao primeiro agendamento, no mesmo dia"
+          title="Do cadastro ao primeiro agendamento em 4 passos"
         />
         <ol className="relative mt-16 grid gap-4 md:grid-cols-4">
           <div aria-hidden className="absolute left-0 right-0 top-[38px] hidden h-px bg-gradient-to-r from-transparent via-sky/40 to-transparent md:block" />

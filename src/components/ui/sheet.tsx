@@ -53,7 +53,7 @@ export function SheetContent({
               <Dialog.Description className="sr-only">{title}</Dialog.Description>
             )}
           </div>
-          <Dialog.Close className="grid size-10 shrink-0 place-items-center rounded-full bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-halo" aria-label="Fechar">
+          <Dialog.Close className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-halo" aria-label="Fechar">
             <X className="size-5" />
           </Dialog.Close>
         </div>

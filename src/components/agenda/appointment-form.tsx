@@ -172,7 +172,7 @@ function FormBody({
                   <p className="truncate font-medium text-halo">{customer.name}</p>
                   <p className="text-[13px] text-muted-foreground">{formatPhone(customer.phone)}</p>
                 </div>
-                <button type="button" onClick={() => setCustomer(null)} className="grid size-9 place-items-center rounded-full bg-white/5" aria-label="Trocar cliente">
+                <button type="button" onClick={() => setCustomer(null)} className="grid size-9 place-items-center rounded-xl bg-white/5" aria-label="Trocar cliente">
                   <X className="size-4" />
                 </button>
               </div>

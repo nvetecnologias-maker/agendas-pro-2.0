@@ -66,7 +66,7 @@ export default async function AdminPaymentsPage({ searchParams }: { searchParams
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[15px] font-medium text-halo">{t.barbershops?.name ?? "Barbearia"}</p>
                     <p className="truncate text-[12px] text-muted-foreground">
-                      {t.plans?.name ?? "—"} · {GATEWAY_LABEL[t.gateway]}{t.method ? ` · ${METHOD[t.method] ?? t.method}` : ""}{t.environment === "sandbox" ? " · teste" : ""}
+                      {t.plans?.name ?? "Não informado"} · {GATEWAY_LABEL[t.gateway]}{t.method ? ` · ${METHOD[t.method] ?? t.method}` : ""}{t.environment === "sandbox" ? " · teste" : ""}
                     </p>
                     <p className="text-[12px] text-subtle-foreground">{formatDateTime(t.paid_at ?? t.created_at)}</p>
                   </div>

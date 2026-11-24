@@ -146,7 +146,7 @@ function GatewayForm({ def, env, current, webhookUrl, onDone }: { def: (typeof P
               const on = methods.includes(m);
               return (
                 <button key={m} type="button" aria-pressed={on} onClick={() => setMethods(on ? methods.filter((x) => x !== m) : [...methods, m])}
-                  className={cn("h-10 rounded-full border px-4 text-[13px]", on ? "border-sky/50 bg-electric/20 text-halo" : "border-white/[0.08] text-muted-foreground")}>
+                  className={cn("h-10 rounded-lg border px-4 text-[13px]", on ? "border-sky/50 bg-electric/20 text-halo" : "border-white/[0.08] text-muted-foreground")}>
                   {METHOD_LABEL[m]}
                 </button>
               );

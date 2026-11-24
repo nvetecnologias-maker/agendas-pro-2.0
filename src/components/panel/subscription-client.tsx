@@ -4,7 +4,9 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Check, Sparkles, Ticket, X } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { LEGAL_ROUTES } from "@/lib/legal";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
@@ -75,7 +77,7 @@ export function SubscriptionClient({
           <div className="flex items-center gap-3 rounded-2xl border border-success/25 bg-success/[0.07] p-3">
             <Ticket className="size-5 shrink-0 text-success" />
             <p className="min-w-0 flex-1 text-sm text-halo">Cupom <b className="font-mono">{applied.code}</b> aplicado</p>
-            <button type="button" onClick={() => { setApplied(null); setCode(""); }} className="grid size-9 place-items-center rounded-full text-muted-foreground hover:bg-white/5" aria-label="Remover cupom">
+            <button type="button" onClick={() => { setApplied(null); setCode(""); }} className="grid size-9 place-items-center rounded-xl text-muted-foreground hover:bg-white/5" aria-label="Remover cupom">
               <X className="size-4" />
             </button>
           </div>
@@ -127,7 +129,14 @@ export function SubscriptionClient({
           );
         })}
       </div>
-      {canManage && <p className="text-center text-[12px] text-subtle-foreground">Pagamento seguro por Pix, cartão ou boleto. A troca de plano vale a partir da confirmação.</p>}
+      {canManage && (
+        <p className="text-center text-[12px] leading-relaxed text-subtle-foreground">
+          O pagamento é feito no ambiente do provedor de pagamento. A troca de plano vale a partir da confirmação.
+          Ao continuar, você concorda com os{" "}
+          <Link href={LEGAL_ROUTES.terms} target="_blank" className="text-sky underline-offset-2 hover:underline">Termos de Uso</Link> e a{" "}
+          <Link href={LEGAL_ROUTES.privacy} target="_blank" className="text-sky underline-offset-2 hover:underline">Política de Privacidade</Link>.
+        </p>
+      )}
 
       {canManage && cancelScheduled && (
         <Button variant="subtle" className="justify-self-start" loading={pending} onClick={() => start(async () => {

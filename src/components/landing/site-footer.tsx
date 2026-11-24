@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { LifeBuoy, Mail, MessageCircle, Phone } from "lucide-react";
+import { COMPANY, LEGAL_ROUTES } from "@/lib/legal";
 import { Logo } from "@/components/brand/logo";
 import type { PublicPlatformInfo } from "@/services/public-site";
 
@@ -24,12 +25,12 @@ export function SiteFooter({ info }: { info: PublicPlatformInfo }) {
   const whatsapp = info.contact_whatsapp?.replace(/\D/g, "");
 
   return (
-    <footer className="border-t border-border bg-[#020817] pb-28 lg:pb-0">
+    <footer className="border-t border-border bg-[#020817] pb-28 xl:pb-0">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="grid content-start gap-4">
           <Logo />
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Agendamento online e gestão completa para barbearias que querem crescer com organização.
+            Sistema de agendamento online e gestão para barbearias: agenda, equipe, serviços, clientes e financeiro.
           </p>
           {socials.length > 0 && (
             <ul className="flex gap-2">
@@ -61,10 +62,13 @@ export function SiteFooter({ info }: { info: PublicPlatformInfo }) {
         </FooterCol>
 
         <FooterCol title="Institucional">
-          <FooterLink href="/termos">Termos de uso</FooterLink>
-          <FooterLink href="/privacidade">Política de privacidade</FooterLink>
-          {info.support_email && (
+          <FooterLink href={LEGAL_ROUTES.terms}>Termos de Uso</FooterLink>
+          <FooterLink href={LEGAL_ROUTES.privacy}>Política de Privacidade</FooterLink>
+          <li><Link href={LEGAL_ROUTES.support} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-halo"><LifeBuoy className="size-3.5" aria-hidden /> Suporte</Link></li>
+          {info.support_email ? (
             <li><a href={`mailto:${info.support_email}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-halo"><Mail className="size-3.5" aria-hidden /> Contato</a></li>
+          ) : (
+            <li><Link href={`${LEGAL_ROUTES.support}#contato`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-halo"><Mail className="size-3.5" aria-hidden /> Contato</Link></li>
           )}
           {whatsapp && (
             <li><a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-halo"><MessageCircle className="size-3.5" aria-hidden /> WhatsApp</a></li>
@@ -75,9 +79,14 @@ export function SiteFooter({ info }: { info: PublicPlatformInfo }) {
         </FooterCol>
       </div>
       <div className="border-t border-border">
-        <p className="mx-auto max-w-7xl px-4 py-6 text-xs text-subtle-foreground sm:px-6">
-          © {new Date().getFullYear()} {info.platform_name}. Todos os direitos reservados.
-        </p>
+        <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-6 text-xs text-subtle-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <p>© {new Date().getFullYear()} {info.platform_name}. Todos os direitos reservados.</p>
+          <p>
+            {info.platform_name}: agendamento online e gestão para barbearias
+            {COMPANY.legalName && <> · {COMPANY.legalName}</>}
+            {COMPANY.cnpj && <> · CNPJ {COMPANY.cnpj}</>}
+          </p>
+        </div>
       </div>
     </footer>
   );

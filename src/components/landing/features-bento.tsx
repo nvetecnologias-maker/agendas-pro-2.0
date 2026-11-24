@@ -96,7 +96,7 @@ export function FeaturesBento() {
 
 function FeatureIcon({ icon: Icon }: { icon: typeof Users }) {
   return (
-    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-b from-electric/30 to-lapis/20 text-sky shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_0_1px_rgba(117,181,255,0.18)]">
+    <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-b from-electric/30 to-lapis/20 text-sky shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_0_1px_rgba(117,181,255,0.18)]">
       <Icon className="size-5.5" aria-hidden />
     </span>
   );

@@ -161,7 +161,7 @@ function CouponForm({ c, plans, onDone }: { c: Coupon | null; plans: PlanOpt[]; 
               return (
                 <button key={p.id} type="button" aria-pressed={on}
                   onClick={() => set("planIds", on ? v.planIds.filter((x) => x !== p.id) : [...v.planIds, p.id])}
-                  className={cn("h-10 rounded-full border px-3.5 text-[13px]", on ? "border-sky/50 bg-electric/20 text-halo" : "border-white/[0.08] text-muted-foreground")}>
+                  className={cn("h-10 rounded-lg border px-3.5 text-[13px]", on ? "border-sky/50 bg-electric/20 text-halo" : "border-white/[0.08] text-muted-foreground")}>
                   {p.name} · {p.price}{p.active ? "" : " (inativo)"}
                 </button>
               );

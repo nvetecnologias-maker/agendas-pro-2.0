@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 /**
- * RIBBON FIELD — gradiente animado em faixas (WebGL)
+ * RIBBON FIELD: gradiente animado em faixas (WebGL)
  * Recriação do efeito "Animated Mesh Gradient · Ribbon Field" com os
  * parâmetros definidos para o Agendas Pro. Todos os valores animados são
  * contínuos (float), sem arredondamento, e o tempo começa já "em movimento"
@@ -38,7 +38,7 @@ export type RibbonFieldParams = {
 /** Parâmetros oficiais do briefing */
 export const AGENDAS_PRO_RIBBON: RibbonFieldParams = {
   stops: [
-    { color: "#F7F3FF", position: 5 },   // Halo
+    { color: "#F5F8FF", position: 5 },   // Halo
     { color: "#083DA9", position: 33 },  // Lapis
     { color: "#02006F", position: 57 },  // Midnight
     { color: "#000000", position: 100 }, // Ink
@@ -189,11 +189,14 @@ export function RibbonField({
   params = AGENDAS_PRO_RIBBON,
   className,
   quality = 1,
+  still = false,
   children,
 }: {
   params?: RibbonFieldParams;
+  /** true: desenha um quadro estático (sem animação contínua) */
+  still?: boolean;
   className?: string;
-  /** 0.35–1: fração da resolução renderizada. Use menos em áreas secundárias. */
+  /** 0.35 a 1: fração da resolução renderizada. Use menos em áreas secundárias. */
   quality?: number;
   children?: React.ReactNode;
 }) {
@@ -294,7 +297,7 @@ export function RibbonField({
     draw();
     setReady(true);
 
-    const animate = p.animated && !reducedMotion;
+    const animate = p.animated && !still && !reducedMotion;
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       cancelAnimationFrame(raf);
@@ -314,7 +317,7 @@ export function RibbonField({
       gl.deleteShader(fs);
       gl.deleteBuffer(buf);
     };
-  }, [params, quality, reducedMotion]);
+  }, [params, quality, reducedMotion, still]);
 
   return (
     <div className={cn("relative overflow-hidden", className)} style={{ background: cssFallback(params) }}>
@@ -322,7 +325,7 @@ export function RibbonField({
         ref={canvasRef}
         aria-hidden
         className={cn(
-          "absolute inset-0 size-full transition-opacity duration-[1200ms] ease-out",
+          "absolute inset-0 size-full transition-opacity duration-500 ease-out",
           ready ? "opacity-100" : "opacity-0",
         )}
       />

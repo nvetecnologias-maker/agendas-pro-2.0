@@ -30,7 +30,7 @@ export function WordReveal({
                   className={cn("inline-block", part.accent && "text-gradient")}
                   initial={{ y: "110%", opacity: 0 }}
                   animate={{ y: "0%", opacity: 1 }}
-                  transition={{ duration: 0.9, delay: delay + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.45, delay: delay + i * 0.03, ease: [0.16, 1, 0.3, 1] }}
                 >
                   {word}
                 </motion.span>

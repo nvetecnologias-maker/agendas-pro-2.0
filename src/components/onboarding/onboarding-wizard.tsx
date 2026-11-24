@@ -35,7 +35,7 @@ const PRESETS = [
   { name: "Pigmentação", duration: 45, price: "50,00" },
   { name: "Degradê", duration: 40, price: "50,00" },
 ];
-const COLORS = ["#2467F2", "#75B5FF", "#7C3AED", "#10B981", "#F59E0B", "#E11D48", "#D4AF37"];
+const COLORS = ["#2467F2", "#75B5FF", "#083DA9", "#10B981", "#F59E0B", "#E11D48", "#D4AF37"];
 
 export function OnboardingWizard({
   shop, userId, ownerName, week, hoursConfigured, services, professionals, publicUrl,
@@ -198,7 +198,7 @@ export function OnboardingWizard({
             <div className="flex flex-wrap gap-2">
               {PRESETS.filter((p) => !services.some((s) => s.name === p.name)).map((p) => (
                 <button key={p.name} type="button" disabled={pending} onClick={() => addService(p)}
-                  className="inline-flex h-11 items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-4 text-[13px] text-halo active:scale-95">
+                  className="inline-flex h-11 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-4 text-[13px] text-halo active:scale-95">
                   <Plus className="size-4 text-sky" /> {p.name} <span className="text-muted-foreground">R$ {p.price}</span>
                 </button>
               ))}

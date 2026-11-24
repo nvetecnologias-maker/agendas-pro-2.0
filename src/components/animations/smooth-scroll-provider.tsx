@@ -30,7 +30,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       return; // rolagem nativa
     }
 
-    const instance = new Lenis({ duration: 1.1, smoothWheel: true, touchMultiplier: 1.2 });
+    const instance = new Lenis({ duration: 0.9, smoothWheel: true, touchMultiplier: 1.2 });
     instance.on("scroll", ScrollTrigger.update);
 
     const tick = (time: number) => instance.raf(time * 1000);

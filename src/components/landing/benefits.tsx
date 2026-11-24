@@ -26,7 +26,7 @@ export function Benefits() {
         {BENEFITS.map((b, i) => (
           <Reveal key={b.title} delay={i * 0.05}>
             <li className="group flex list-none gap-5 rounded-3xl border border-border bg-surface-1/70 p-6 transition-colors duration-300 hover:border-sky/30 hover:bg-surface-1">
-              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-electric/15 text-sky transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-6deg]">
+              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-electric/15 text-sky">
                 <b.icon className="size-5.5" aria-hidden />
               </span>
               <div>

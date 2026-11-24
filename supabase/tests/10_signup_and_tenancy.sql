@@ -5,8 +5,8 @@
 
 -- Dois barbeiros se cadastram (como o Supabase Auth faria)
 insert into auth.users (email, raw_user_meta_data) values
-  ('joao@teste.dev',  '{"full_name":"João Silva","phone":"(11) 98888-7777","barbershop_name":"Barbearia do João"}'),
-  ('maria@teste.dev', '{"full_name":"Maria Souza","phone":"11977776666","barbershop_name":"Barbearia do João"}'),
+  ('joao@teste.dev',  '{"full_name":"João Silva","phone":"(11) 98888-7777","barbershop_name":"Barbearia do João","terms_version":"2026-11-24","privacy_version":"2026-11-24"}'),
+  ('maria@teste.dev', '{"full_name":"Maria Souza","phone":"11977776666","barbershop_name":"Barbearia do João","terms_version":"2026-11-24","privacy_version":"2026-11-24"}'),
   ('pedro@teste.dev', '{"full_name":"Pedro Profissional"}'),
   ('root@teste.dev',  '{"full_name":"Dono da Plataforma"}');
 

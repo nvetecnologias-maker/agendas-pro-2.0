@@ -8,6 +8,7 @@ const valid = {
   barbershopName: "Barbearia do João",
   password: "senha123",
   confirmPassword: "senha123",
+  acceptLegal: "on",
 };
 
 describe("cadastro", () => {
@@ -22,6 +23,15 @@ describe("cadastro", () => {
   });
   it("recusa senha fraca", () => {
     expect(signUpSchema.safeParse({ ...valid, password: "abc", confirmPassword: "abc" }).success).toBe(false);
+  });
+  it("exige aceite dos Termos e da Política (caixa não vem marcada)", () => {
+    const r = signUpSchema.safeParse({ ...valid, acceptLegal: undefined });
+    expect(r.success).toBe(false);
+    if (!r.success) {
+      expect(r.error.issues[0].path[0]).toBe("acceptLegal");
+      expect(r.error.issues[0].message).toContain("Termos de Uso");
+    }
+    expect(signUpSchema.safeParse({ ...valid, acceptLegal: "off" }).success).toBe(false);
   });
   it("recusa telefone sem DDD", () => {
     expect(signUpSchema.safeParse({ ...valid, phone: "98888777" }).success).toBe(false);

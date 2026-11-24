@@ -123,7 +123,7 @@ export function AppointmentDetail({
           </div>
 
           <dl className="grid gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.05]">
-            <Row icon={CalendarClock} label="Data e horário" value={<span>{formatDayLong(toLocalDay(a.starts_at, tz))}, {toLocalTime(a.starts_at, tz)}–{toLocalTime(a.ends_at, tz)}</span>} />
+            <Row icon={CalendarClock} label="Data e horário" value={<span>{formatDayLong(toLocalDay(a.starts_at, tz))}, {toLocalTime(a.starts_at, tz)} às {toLocalTime(a.ends_at, tz)}</span>} />
             <Row icon={Scissors} label="Serviço" value={a.service?.name} />
             <Row icon={User} label="Profissional" value={a.professional?.name} />
             <Row icon={Clock} label="Duração" value={formatDuration(a.duration_minutes)} />
@@ -245,7 +245,7 @@ export function PaymentInline({ appointmentId, defaultCents, tz, onDone }: { app
             role="radio"
             aria-checked={method === m}
             onClick={() => setMethod(m)}
-            className={cn("h-10 rounded-full border px-3.5 text-[13px]", method === m ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}
+            className={cn("h-10 rounded-lg border px-3.5 text-[13px]", method === m ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}
           >
             {METHOD_LABEL[m]}
           </button>

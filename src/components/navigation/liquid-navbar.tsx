@@ -38,6 +38,8 @@ type Props = {
 const PAD = 12; // margem do canvas em volta da pílula (sombras e ondas)
 const MAX_RIPPLES = 4;
 const MAX_DROPS = 3;
+/** Gotas em saltos longos: desligado para manter o movimento discreto */
+const ENABLE_DROPS = false;
 
 const VERT = `attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
 
@@ -46,8 +48,8 @@ uniform vec2 uRes;uniform float uDpr;uniform float uTime;uniform vec4 uPill;
 uniform vec4 uHead;uniform vec4 uTail;uniform float uSquash;
 uniform vec3 uDrop[${MAX_DROPS}];uniform vec4 uRip[${MAX_RIPPLES}];uniform vec3 uMouse;uniform float uAmb;
 
-float sdPill(vec2 p,vec2 c,vec2 h){vec2 q=abs(p-c)-vec2(h.x-h.y,0.);return length(max(q,0.))+min(max(q.x,q.y),0.)-h.y;}
-float sdCap(vec2 p,vec4 B){vec2 d=p-B.xy;d.y/=uSquash;d.x=max(abs(d.x)-B.z,0.);return (length(d)-B.w)*min(1.,uSquash);}
+float sdPill(vec2 p,vec2 c,vec2 h){float r=min(16.,h.y);vec2 q=abs(p-c)-h+vec2(r);return length(max(q,0.))+min(max(q.x,q.y),0.)-r;}
+float sdCap(vec2 p,vec4 B){vec2 d=p-B.xy;d.y/=uSquash;float r=min(11.,B.w);vec2 q=abs(d)-vec2(B.z+B.w-r,B.w-r);return (length(max(q,0.))+min(max(q.x,q.y),0.)-r)*min(1.,uSquash);}
 float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
 float liquid(vec2 p){
   float d=smin(sdCap(p,uHead),sdCap(p,uTail),14.);
@@ -181,7 +183,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
       s.ripples.slice(-MAX_RIPPLES).forEach((r, i) => rips.set([r.x, r.y, r.age, r.amp], i * 4));
       gl.uniform4fv(u.uRip, rips);
       gl.uniform3f(u.uMouse, s.mouse.x, s.mouse.y, s.mouse.s);
-      gl.uniform1f(u.uAmb, s.reduce ? 0 : 1);
+      gl.uniform1f(u.uAmb, 0); // sem ondulação contínua
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -218,7 +220,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
 
       // salto longo: o "pescoço" se rompe em gotas
       const sep = Math.abs(s.head.x - s.tail.x);
-      if (!s.split && s.moving && sep > 2 * (s.half + s.r) + 10) {
+      if (ENABLE_DROPS && !s.split && s.moving && sep > 2 * (s.half + s.r) + 10) {
         s.split = true;
         [0.32, 0.52, 0.72].forEach((t, j) => {
           s.drops.push({
@@ -244,7 +246,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
         Math.abs(s.head.v) < 3 && Math.abs(s.tail.v) < 3 && !s.drops.length && Math.abs(s.squash - 1) < 0.003;
       if (s.moving && settled) {
         s.moving = false;
-        s.ripples.push({ x: s.target, y: s.cy, age: 0, amp: s.split ? 1.1 : 0.6 });
+        s.ripples.push({ x: s.target, y: s.cy, age: 0, amp: 0.3 });
       }
     }
     s.ripples.forEach((r) => (r.age += dt));
@@ -262,8 +264,8 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
       step(dt);
       render();
       const busy = s.moving || s.ripples.length > 0 || s.drops.length > 0 || s.mouse.s > 0.01;
-      // água ambiente só se movimento permitido; com reduced-motion, anima só mudanças
-      s.raf = s.visible && (!s.reduce || busy) ? requestAnimationFrame(tick) : 0;
+      // só anima enquanto há mudança (nada roda em segundo plano)
+      s.raf = s.visible && busy ? requestAnimationFrame(tick) : 0;
     };
     s.raf = requestAnimationFrame(tick);
   }, [render, step]);
@@ -392,18 +394,18 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
         const s = sim.current;
         if (s.reduce) return;
         const p = toLocal(e.clientX, e.clientY);
-        s.ripples.push({ x: p.x, y: p.y, age: 0, amp: 0.8 });
+        s.ripples.push({ x: p.x, y: p.y, age: 0, amp: 0.3 });
         loop();
       }}
       className={cn(
-        "liquid-nav relative isolate inline-flex items-center gap-0.5 rounded-full p-1.5 select-none",
+        "liquid-nav relative isolate inline-flex items-center gap-0.5 rounded-2xl p-1.5 select-none",
         className,
       )}
     >
-      {/* vidro da pílula */}
+      {/* vidro da barra */}
       <span
         aria-hidden
-        className="absolute inset-0 -z-20 rounded-full border border-white/12 bg-[rgba(10,24,70,0.35)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_20px_rgba(117,181,255,0.08),0_12px_32px_-14px_rgba(0,0,0,0.7)] backdrop-blur-xl backdrop-saturate-150"
+        className="absolute inset-0 -z-20 rounded-2xl border border-white/12 bg-[rgba(10,24,70,0.35)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_20px_rgba(117,181,255,0.08),0_12px_32px_-14px_rgba(0,0,0,0.7)] backdrop-blur-xl backdrop-saturate-150"
       />
       {/* água (WebGL) */}
       <canvas
@@ -417,7 +419,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
         ref={dropRef}
         aria-hidden
         className={cn(
-          "pointer-events-none absolute top-1.5 bottom-1.5 left-0 -z-10 rounded-full will-change-transform",
+          "pointer-events-none absolute top-1.5 bottom-1.5 left-0 -z-10 rounded-xl will-change-transform",
           "bg-[radial-gradient(120%_140%_at_30%_0%,rgba(255,255,255,0.45),transparent_55%),linear-gradient(180deg,#3b7bff,#2467f2)]",
           "shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),0_6px_18px_-6px_rgba(36,103,242,0.8)]",
           webgl ? "hidden" : "block",
@@ -426,7 +428,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
 
       {items.map((item, i) => {
         const isActive = i === current;
-        const kind = item.fx ?? "hop";
+        const kind = item.fx ?? "none";
         const playing = fx.i === i && kind !== "none";
         const content = (
           <>
@@ -448,7 +450,7 @@ export function LiquidNavbar({ items, active, defaultActive = 0, onSelect, compa
           "aria-current": isActive ? ("true" as const) : undefined,
           onClick: () => select(i),
           className: cn(
-            "relative z-10 inline-flex h-10 items-center gap-2 rounded-full text-[14px] font-medium tracking-[-0.01em] transition-colors duration-300 outline-none",
+            "relative z-10 inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-xl text-[14px] font-medium tracking-[-0.01em] transition-colors duration-300 outline-none",
             "focus-visible:ring-2 focus-visible:ring-sky focus-visible:ring-offset-0",
             compact ? "px-3" : "px-4",
             isActive ? "text-white" : "text-halo/65 hover:text-halo",

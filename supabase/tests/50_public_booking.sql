@@ -6,7 +6,7 @@ reset role;
 select from tests.logout();
 
 insert into auth.users (email, raw_user_meta_data) values
-  ('publica@teste.dev', '{"full_name":"Dono Pública","phone":"11955554444","barbershop_name":"Tesoura Publica Teste"}');
+  ('publica@teste.dev', '{"full_name":"Dono Pública","phone":"11955554444","barbershop_name":"Tesoura Publica Teste","terms_version":"2026-11-24","privacy_version":"2026-11-24"}');
 
 create temp table pb as
 select (select id from public.barbershops where name = 'Tesoura Publica Teste') as shop,

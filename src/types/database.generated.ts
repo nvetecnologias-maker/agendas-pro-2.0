@@ -1,4 +1,4 @@
-// ARQUIVO GERADO por scripts/gen-db-types.py — não edite à mão.
+// ARQUIVO GERADO por scripts/gen-db-types.py; não edite à mão.
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
@@ -495,6 +495,33 @@ export type Database = {
             referencedColumns: ["id"];
           },
         ];
+      };
+      legal_acceptances: {
+        Row: {
+          id: string;
+          user_id: string;
+          document: Database["public"]["Enums"]["legal_document"];
+          version: string;
+          accepted_at: string;
+          source: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          document: Database["public"]["Enums"]["legal_document"];
+          version: string;
+          accepted_at?: string;
+          source?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          document?: Database["public"]["Enums"]["legal_document"];
+          version?: string;
+          accepted_at?: string;
+          source?: string;
+        };
+        Relationships: [];
       };
       notifications: {
         Row: {
@@ -1384,6 +1411,7 @@ export type Database = {
       };
     };
     Functions: {
+      accept_legal_documents: { Args: { p_terms_version: string; p_privacy_version: string; p_source?: string }; Returns: undefined };
       admin_barbershop_detail: { Args: { p_barbershop_id: string }; Returns: Json };
       admin_change_plan: { Args: { p_barbershop_id: string; p_plan_id: string; p_status?: Database["public"]["Enums"]["subscription_status"]; p_period_days?: number; p_reason?: string }; Returns: string };
       admin_grant_days: { Args: { p_barbershop_id: string; p_days: number; p_reason?: string }; Returns: string };
@@ -1440,6 +1468,7 @@ export type Database = {
       coupon_audience: "all" | "new_customers" | "existing_customers";
       discount_type: "percent" | "fixed";
       gateway_environment: "sandbox" | "production";
+      legal_document: "terms_of_use" | "privacy_policy";
       notification_channel: "in_app" | "email" | "whatsapp";
       notification_status: "pending" | "sent" | "failed" | "skipped_not_configured";
       payment_gateway: "mercado_pago" | "asaas" | "stripe";

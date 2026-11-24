@@ -85,7 +85,7 @@ function StandalonePayment({ tz, services, professionals, onDone }: { tz: string
         <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Forma de pagamento">
           {METHODS.map((m) => (
             <button key={m} type="button" role="radio" aria-checked={f.method === m} onClick={() => setF({ ...f, method: m })}
-              className={cn("h-10 rounded-full border px-3.5 text-[13px]", f.method === m ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}>{METHOD_LABEL[m]}</button>
+              className={cn("h-10 rounded-lg border px-3.5 text-[13px]", f.method === m ? "border-sky/40 bg-electric/25 text-halo" : "border-white/10 text-muted-foreground")}>{METHOD_LABEL[m]}</button>
           ))}
         </div>
         <div className="grid grid-cols-2 gap-3">

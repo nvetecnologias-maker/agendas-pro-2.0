@@ -10,11 +10,11 @@ import { useSmoothScroll } from "@/components/animations/smooth-scroll-provider"
 import { cn } from "@/lib/utils";
 
 const NAV: LiquidNavItem[] = [
-  { id: "inicio", label: "Início", href: "#inicio", icon: <House />, fx: "hop" },
-  { id: "funcionalidades", label: "Funcionalidades", href: "#funcionalidades", icon: <LayoutGrid />, fx: "pulse" },
-  { id: "como-funciona", label: "Como funciona", href: "#como-funciona", icon: <Workflow />, fx: "spin" },
-  { id: "planos", label: "Planos", href: "#planos", icon: <CreditCard />, fx: "tilt" },
-  { id: "faq", label: "Perguntas", href: "#faq", icon: <CircleHelp />, fx: "pulse" },
+  { id: "inicio", label: "Início", href: "#inicio", icon: <House /> },
+  { id: "funcionalidades", label: "Funcionalidades", href: "#funcionalidades", icon: <LayoutGrid /> },
+  { id: "como-funciona", label: "Como funciona", href: "#como-funciona", icon: <Workflow /> },
+  { id: "planos", label: "Planos", href: "#planos", icon: <CreditCard /> },
+  { id: "faq", label: "Perguntas", href: "#faq", icon: <CircleHelp /> },
 ];
 
 /** Seção visível no momento (scroll-spy) */
@@ -80,7 +80,7 @@ export function SiteHeader() {
             <Logo />
           </Link>
 
-          <div className="hidden lg:block" onClickCapture={onNavClick}>
+          <div className="hidden xl:block" onClickCapture={onNavClick}>
             <LiquidNavbar items={NAV} active={active} onSelect={(i) => goTo(i)} />
           </div>
 
@@ -98,7 +98,7 @@ export function SiteHeader() {
       {/* Celular/tablet: navegação inferior compacta (só ícones) */}
       <div
         className={cn(
-          "fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 transition-all duration-500 ease-out lg:hidden",
+          "fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 transition-all duration-500 ease-out xl:hidden",
           showDock ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0",
         )}
         aria-hidden={!showDock}

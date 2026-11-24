@@ -101,7 +101,7 @@ export function ShopProfileForm({ shop }: { shop: Barbershop }) {
   );
 }
 
-const COLORS = ["#2467F2", "#75B5FF", "#083DA9", "#7C3AED", "#0EA5E9", "#10B981", "#F59E0B", "#E11D48", "#D4AF37", "#F7F3FF"];
+const COLORS = ["#2467F2", "#75B5FF", "#083DA9", "#0EA5E9", "#10B981", "#F59E0B", "#E11D48", "#D4AF37", "#F5F8FF"];
 
 export function BrandingForm({ shop }: { shop: Barbershop }) {
   const b = (shop.branding ?? {}) as { primary?: string; gallery?: string[]; show_professionals?: boolean; welcome?: string };

@@ -49,7 +49,7 @@ export function AdminShell({ userName, hasShop, children }: { userName: string; 
         <div className="flex items-center gap-2 px-5 pb-4 pt-6">
           <Logo />
         </div>
-        <p className="mx-5 mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-[#B98226]/15 px-2.5 py-1 text-[11px] font-medium text-[#E7B661]">
+        <p className="mx-5 mb-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-[#B98226]/15 px-2.5 py-1 text-[11px] font-medium text-[#E7B661]">
           <ShieldCheck className="size-3.5" /> Super Admin
         </p>
         <nav aria-label="Menu do Super Admin" className="flex-1 overflow-y-auto px-3">
@@ -86,9 +86,9 @@ export function AdminShell({ userName, hasShop, children }: { userName: string; 
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-3 border-b border-white/[0.06] bg-navy/80 px-4 backdrop-blur-xl lg:hidden">
         <div className="flex items-center gap-2">
           <Logo />
-          <span className="rounded-full bg-[#B98226]/15 px-2 py-0.5 text-[11px] font-medium text-[#E7B661]">Admin</span>
+          <span className="rounded-md bg-[#B98226]/15 px-2 py-0.5 text-[11px] font-medium text-[#E7B661]">Admin</span>
         </div>
-        <button type="button" onClick={() => setOpen(true)} className="grid size-10 place-items-center rounded-full bg-white/5 text-halo" aria-label="Abrir menu">
+        <button type="button" onClick={() => setOpen(true)} className="grid size-10 place-items-center rounded-xl bg-white/5 text-halo" aria-label="Abrir menu">
           <Menu className="size-5" />
         </button>
       </header>

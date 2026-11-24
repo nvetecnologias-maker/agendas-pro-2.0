@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getSiteUrl } from "@/lib/supabase/env";
 import { authErrorMessage } from "@/lib/auth/errors";
 import { safeNextPath } from "@/lib/auth/session";
+import { PRIVACY_VERSION, TERMS_VERSION } from "@/lib/legal";
 import {
   forgotPasswordSchema,
   resetPasswordSchema,
@@ -51,8 +52,9 @@ export async function signInAction(_: FormState, formData: FormData): Promise<Fo
 
 export async function signUpAction(_: FormState, formData: FormData): Promise<FormState> {
   const raw = pick(formData, ["fullName", "email", "phone", "barbershopName", "password", "confirmPassword"]);
-  const values = { fullName: raw.fullName, email: raw.email, phone: raw.phone, barbershopName: raw.barbershopName };
-  const parsed = signUpSchema.safeParse(raw);
+  const acceptLegal = formData.get("acceptLegal") === "on" ? "on" : undefined;
+  const values = { fullName: raw.fullName, email: raw.email, phone: raw.phone, barbershopName: raw.barbershopName, acceptLegal: acceptLegal ?? "" };
+  const parsed = signUpSchema.safeParse({ ...raw, acceptLegal });
   if (!parsed.success) return { status: "error", fieldErrors: toFieldErrors(parsed.error), values };
 
   const { fullName, email, phone, barbershopName, password } = parsed.data;
@@ -67,7 +69,15 @@ export async function signUpAction(_: FormState, formData: FormData): Promise<Fo
     email,
     password,
     options: {
-      data: { full_name: fullName, phone, barbershop_name: barbershopName, desired_plan: safePlan },
+      // versão dos documentos aceitos; a data do aceite é registrada pelo banco
+      data: {
+        full_name: fullName,
+        phone,
+        barbershop_name: barbershopName,
+        desired_plan: safePlan,
+        terms_version: TERMS_VERSION,
+        privacy_version: PRIVACY_VERSION,
+      },
       emailRedirectTo: `${await siteUrl()}/auth/callback?next=/onboarding`,
     },
   });
