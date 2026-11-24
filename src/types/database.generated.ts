@@ -69,6 +69,7 @@ export type Database = {
           is_demo: boolean;
           created_at: string;
           updated_at: string;
+          public_token: string;
         };
         Insert: {
           id?: string;
@@ -89,6 +90,7 @@ export type Database = {
           is_demo?: boolean;
           created_at?: string;
           updated_at?: string;
+          public_token?: string;
         };
         Update: {
           id?: string;
@@ -109,6 +111,7 @@ export type Database = {
           is_demo?: boolean;
           created_at?: string;
           updated_at?: string;
+          public_token?: string;
         };
         Relationships: [
           {
@@ -1336,13 +1339,18 @@ export type Database = {
     Functions: {
       barbershop_access_level: { Args: { p_barbershop_id: string }; Returns: string };
       can_operate: { Args: { p_barbershop_id: string }; Returns: boolean };
+      cancel_public_appointment: { Args: { p_token: string; p_reason?: string }; Returns: Json };
+      create_public_booking: { Args: { p_slug: string; p_service_id: string; p_professional_id: string; p_starts_at: string; p_name: string; p_phone: string; p_email?: string; p_notes?: string }; Returns: Json };
       dashboard_overview: { Args: { p_barbershop_id: string; p_from: string; p_to: string }; Returns: Json };
       finance_overview: { Args: { p_barbershop_id: string; p_from: string; p_to: string }; Returns: Json };
       get_available_slots: { Args: { p_barbershop_id: string; p_service_id: string; p_day: string; p_professional_id?: string }; Returns: { professional_id: string; starts_at: string; ends_at: string }[] };
+      get_public_appointment: { Args: { p_token: string }; Returns: Json };
+      get_public_barbershop: { Args: { p_slug: string }; Returns: Json };
       get_public_platform_info: { Args: Record<PropertyKey, never>; Returns: { platform_name: string; logo_url: string; support_email: string; contact_phone: string; contact_whatsapp: string; public_base_url: string; default_trial_days: number; social_links: Json }[] };
       has_feature: { Args: { p_barbershop_id: string; p_feature_key: string }; Returns: boolean };
       has_shop_role: { Args: { shop_id: string; roles: Database["public"]["Enums"]["shop_role"][] }; Returns: boolean };
       is_own_professional: { Args: { p_professional_id: string }; Returns: boolean };
+      is_reserved_slug: { Args: { p_slug: string }; Returns: boolean };
       is_shop_manager: { Args: { shop_id: string }; Returns: boolean };
       is_shop_member: { Args: { shop_id: string }; Returns: boolean };
       is_super_admin: { Args: Record<PropertyKey, never>; Returns: boolean };

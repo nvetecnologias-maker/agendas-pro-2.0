@@ -8,6 +8,17 @@ const AP: Record<string, string> = {
   AP_SERVICE_NOT_FOUND: "Serviço não encontrado.",
   AP_SERVICE_INACTIVE: "Esse serviço está inativo.",
   AP_FORBIDDEN: "Você não tem permissão para isso.",
+  AP_SLUG_RESERVED: "Esse endereço é reservado pelo sistema. Escolha outro.",
+  AP_SHOP_UNAVAILABLE: "Esta barbearia não está recebendo agendamentos online no momento.",
+  AP_SLOT_UNAVAILABLE: "Esse horário acabou de ser ocupado. Escolha outro.",
+  AP_INVALID_NAME: "Informe seu nome.",
+  AP_INVALID_PHONE: "Informe um celular válido com DDD.",
+  AP_INVALID_EMAIL: "E-mail inválido.",
+  AP_INVALID_NOTES: "A observação pode ter no máximo 500 caracteres.",
+  AP_TOO_MANY_BOOKINGS: "Você já tem agendamentos em aberto nesta barbearia. Fale com a barbearia para marcar outro.",
+  AP_NOT_CANCELLABLE: "Este agendamento não pode mais ser cancelado.",
+  AP_CANCEL_TOO_LATE: "O prazo para cancelar pelo link já passou. Fale com a barbearia.",
+  AP_NOT_FOUND: "Agendamento não encontrado.",
 };
 
 export function dbErrorMessage(error: { code?: string; message?: string } | null | undefined, fallback = "Não foi possível salvar. Tente novamente."): string {
