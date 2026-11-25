@@ -233,7 +233,7 @@ function Hero({ data, compact }: { data: Data; compact: boolean }) {
             </div>
           )}
         </div>
-        <h1 className={cn("mt-3 font-semibold tracking-tight text-halo", compact ? "text-xl" : "text-[28px] leading-tight")}>{shop.name}</h1>
+        <h1 className={cn("mt-3 font-semibold tracking-tight text-halo", compact ? "text-xl" : "text-2xl leading-tight sm:text-[28px]")}>{shop.name}</h1>
         {!compact && (
           <div className="mt-1.5 grid gap-1 text-[14px] text-muted-foreground">
             {addr.line2 && <p className="flex items-center gap-1.5"><MapPin className="size-4 shrink-0" /> {addr.line2}</p>}

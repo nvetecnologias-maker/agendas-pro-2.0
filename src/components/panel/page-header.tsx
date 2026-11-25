@@ -14,7 +14,7 @@ export function PageHeader({
   return (
     <div className={cn("flex flex-wrap items-end justify-between gap-3", className)}>
       <div className="grid gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight text-halo md:text-[28px]">{title}</h1>
+        <h1 className="text-[22px] font-semibold tracking-tight text-halo md:text-[28px]">{title}</h1>
         {description && <p className="text-sm text-muted-foreground">{description}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}

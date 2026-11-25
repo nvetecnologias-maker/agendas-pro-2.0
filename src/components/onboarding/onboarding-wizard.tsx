@@ -125,7 +125,7 @@ export function OnboardingWizard({
             <span key={i} className={cn("h-1.5 flex-1 rounded-full", i + 1 <= step ? "bg-gradient-to-r from-sky to-electric" : "bg-white/10")} />
           ))}
         </div>
-        <h1 className="mt-3 text-[28px] font-semibold leading-tight tracking-tight text-halo">{STEPS[step - 1]}</h1>
+        <h1 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-halo sm:text-[28px]">{STEPS[step - 1]}</h1>
         <p className="text-muted-foreground">
           {[
             `Vamos deixar a ${shop.name} pronta para receber agendamentos online. Leva poucos minutos.`,

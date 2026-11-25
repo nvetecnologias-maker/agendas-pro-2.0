@@ -58,7 +58,7 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
             <Badge tone={st.tone} dot>{st.label}</Badge>
           </div>
           <p className="mt-3 text-[13px] text-halo/70">Plano atual</p>
-          <p className="text-3xl font-semibold text-white">{sub.plan?.name ?? "Não informado"}</p>
+          <p className="text-2xl font-semibold text-white sm:text-3xl">{sub.plan?.name ?? "Não informado"}</p>
           <p className="mt-1 font-mono text-halo/80">{formatMoney(sub.amount_cents)}{PERIOD_LABEL[sub.billing_period].short}</p>
         </section>
       ) : (

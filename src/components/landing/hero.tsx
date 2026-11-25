@@ -40,7 +40,7 @@ export function Hero({ trialDays }: { trialDays: number }) {
           <motion.h1
             id="hero-title"
             {...fade(0.05)}
-            className="mt-5 text-[36px] font-semibold leading-[1.06] tracking-[-0.03em] text-halo sm:text-5xl lg:text-[58px]"
+            className="mt-5 text-[30px] font-semibold leading-[1.1] tracking-[-0.03em] text-halo sm:text-5xl lg:text-[58px]"
           >
             Agenda online e gestão da sua barbearia <span className="text-gradient">em um só lugar.</span>
           </motion.h1>

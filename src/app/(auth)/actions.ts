@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { getSiteUrl } from "@/lib/supabase/env";
 import { authErrorMessage } from "@/lib/auth/errors";
-import { safeNextPath } from "@/lib/auth/session";
+import { getSession, homePathFor, safeNextPath } from "@/lib/auth/session";
 import { PRIVACY_VERSION, TERMS_VERSION } from "@/lib/legal";
 import {
   forgotPasswordSchema,
@@ -47,7 +47,12 @@ export async function signInAction(_: FormState, formData: FormData): Promise<Fo
   if (error) {
     return { status: "error", message: authErrorMessage(error.code), values: { email: raw.email } };
   }
-  redirect(safeNextPath(String(formData.get("next") ?? "")));
+  const next = String(formData.get("next") ?? "");
+  if (next) redirect(safeNextPath(next));
+  // Vai direto para a área certa (painel, configuração inicial ou Super Admin),
+  // sem passar por uma rota intermediária que deixaria o endereço errado na barra.
+  const ctx = await getSession();
+  redirect(ctx ? homePathFor(ctx) : "/auth/redirecionar");
 }
 
 export async function signUpAction(_: FormState, formData: FormData): Promise<FormState> {

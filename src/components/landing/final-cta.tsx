@@ -10,7 +10,7 @@ export function FinalCta({ trialDays }: { trialDays: number }) {
       <Reveal>
         <RibbonField still quality={0.6} className="rounded-3xl border border-white/10">
           <div className="grid justify-items-center gap-6 px-6 py-20 text-center sm:py-24">
-            <h2 id="cta-title" className="max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl">
+            <h2 id="cta-title" className="max-w-2xl text-[30px] font-semibold leading-[1.08] tracking-[-0.03em] sm:text-5xl">
               Comece a receber agendamentos pelo seu link
             </h2>
             <p className="max-w-lg text-lg text-halo/75">
