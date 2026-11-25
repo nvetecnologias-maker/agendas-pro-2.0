@@ -63,10 +63,9 @@ create or replace function storage.foldername(name text) returns text[] language
   select (string_to_array(name, '/'))[1:array_length(string_to_array(name, '/'), 1) - 1]
 $$;
 
--- Privilégios padrão equivalentes aos do Supabase: as tabelas do schema public
--- são acessíveis pelos papéis da API, e a RLS decide o que cada um enxerga.
-alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
-alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
+-- Como nos projetos Supabase novos, as tabelas do schema public NÃO recebem
+-- privilégios automáticos para os papéis da API: a migration 0014 concede o
+-- necessário. Funções seguem o padrão do PostgreSQL (execute para PUBLIC).
 alter default privileges in schema public grant execute on functions to anon, authenticated, service_role;
 
 -- Vault (supabase_vault) mínimo: guarda segredos fora das tabelas da aplicação.
