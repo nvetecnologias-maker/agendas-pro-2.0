@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const control =
-  "w-full rounded-xl border border-input bg-surface-2 px-3.5 text-[15px] text-halo placeholder:text-subtle-foreground outline-none transition-colors focus:border-sky/60 focus:ring-2 focus:ring-ring/40 disabled:opacity-50 aria-[invalid=true]:border-danger/70 aria-[invalid=true]:bg-danger/5";
+  "w-full rounded-xl border border-input bg-surface-2 px-3.5 text-base md:text-[15px] text-halo placeholder:text-subtle-foreground outline-none transition-colors focus:border-sky/60 focus:ring-2 focus:ring-ring/40 disabled:opacity-50 aria-[invalid=true]:border-danger/70 aria-[invalid=true]:bg-danger/5";
 
 /** Select nativo (no celular abre o seletor do sistema, que é o mais rápido) */
 export const Select = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(

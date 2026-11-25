@@ -34,7 +34,13 @@ export const metadata: Metadata = {
   appleWebApp: { title: "Agendas Pro", statusBarStyle: "black-translucent" },
 };
 
-export const viewport: Viewport = { themeColor: "#030B20", colorScheme: "dark" };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#030B20",
+  colorScheme: "dark",
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

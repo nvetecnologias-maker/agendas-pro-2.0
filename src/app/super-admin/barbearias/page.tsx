@@ -49,7 +49,7 @@ export default async function AdminShopsPage({ searchParams }: { searchParams: P
         <label className="relative flex-1">
           <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-subtle-foreground" />
           <input name="q" defaultValue={sp.q} placeholder="Nome, link, dono, e-mail ou telefone"
-            className="h-12 w-full rounded-lg border border-white/[0.08] bg-surface-1 pl-10 pr-4 text-[15px] text-halo placeholder:text-subtle-foreground outline-none focus:border-sky/50" />
+            className="h-12 w-full rounded-lg border border-white/[0.08] bg-surface-1 pl-10 pr-4 text-base md:text-[15px] text-halo placeholder:text-subtle-foreground outline-none focus:border-sky/50" />
         </label>
         <button className="h-12 rounded-lg bg-electric px-5 text-sm font-medium text-white">Buscar</button>
       </form>

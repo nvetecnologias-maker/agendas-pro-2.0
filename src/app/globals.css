@@ -231,3 +231,14 @@ html.lenis, html.lenis body { height: auto; }
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Celular: o iPhone (Safari) aproxima a tela sozinho ao tocar em qualquer
+   campo com letra menor que 16px, e a página fica "com zoom" depois disso.
+   Garantimos 16px em todo campo de texto nas telas pequenas. */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
